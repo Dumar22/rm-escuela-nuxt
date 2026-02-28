@@ -6,6 +6,7 @@
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-display: 'Playfair Display', serif;
   --font-brush: 'Caveat', cursive;
+  --font-rough: 'Rubik Dirt', serif;
 
   /* Color Primario - Naranja RM */
   --color-orange-50: #fff7ed;
@@ -41,6 +42,10 @@
 
 .font-brush {
   font-family: var(--font-brush);
+}
+
+.font-rough {
+  font-family: var(--font-rough);
 }
 
 h1, h2, h3, h4, h5, h6 {

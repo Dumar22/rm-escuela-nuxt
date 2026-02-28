@@ -82,7 +82,7 @@ useSeoMeta({
             <h2 class="text-3xl font-display font-bold tracking-tight text-gray-900 mb-6">
               Información de Contacto
             </h2>
-            <p class="text-lg text-gray-600 mb-8">
+            <p class="text-lg text-gray-700 mb-8">
               Comunícate con nosotros por cualquiera de estos medios. Normalmente respondemos en menos de 24 horas.
             </p>
 
@@ -94,7 +94,7 @@ useSeoMeta({
                     <span class="font-semibold">{{ info.title }}</span>
                   </div>
                 </template>
-                <p v-for="line in info.lines" :key="line" class="text-gray-600">
+                <p v-for="line in info.lines" :key="line" class="text-gray-700">
                   {{ line }}
                 </p>
               </UCard>

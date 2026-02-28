@@ -59,7 +59,7 @@ useSeoMeta({
           <h2 class="text-3xl font-display font-bold tracking-tight text-gray-900 sm:text-4xl mb-6">
             Nuestra Historia
           </h2>
-          <div class="space-y-6 text-lg text-gray-600">
+          <div class="space-y-6 text-lg text-gray-700">
             <p>
               RM Escuela Creativa de Artes y Moda nació en 2015 con un sueño: democratizar el acceso 
               a la educación en artes, moda y diseño en Colombia. Desde entonces, hemos formado a más 
@@ -86,7 +86,7 @@ useSeoMeta({
           <h2 class="text-3xl font-display font-bold tracking-tight text-gray-900 sm:text-4xl">
             Nuestros Valores
           </h2>
-          <p class="mt-4 text-lg leading-8 text-gray-600">
+          <p class="mt-4 text-lg leading-8 text-gray-700">
             La base de todo lo que hacemos
           </p>
         </div>
@@ -100,7 +100,7 @@ useSeoMeta({
               <UIcon :name="value.icon" class="h-8 w-8 text-orange-500" />
             </div>
             <h3 class="text-xl font-display font-bold mb-2">{{ value.title }}</h3>
-            <p class="text-gray-600">{{ value.description }}</p>
+            <p class="text-gray-700">{{ value.description }}</p>
           </UCard>
         </div>
       </div>
@@ -119,7 +119,7 @@ useSeoMeta({
             <div class="text-5xl font-display font-bold text-orange-500 mb-2">
               {{ stat.value }}
             </div>
-            <div class="text-gray-600">{{ stat.label }}</div>
+            <div class="text-gray-700">{{ stat.label }}</div>
           </div>
         </div>
       </div>

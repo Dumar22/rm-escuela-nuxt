@@ -1,3 +1,6 @@
+onlyBuiltDependencies:
+  - sharp
+
 ignoredBuiltDependencies:
   - '@parcel/watcher'
   - '@tailwindcss/oxide'

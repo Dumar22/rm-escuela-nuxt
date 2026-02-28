@@ -34,7 +34,7 @@ const faqs = [
       <h1 class="text-4xl font-display font-bold text-gray-900 text-center">
         Preguntas Frecuentes
       </h1>
-      <p class="mt-4 text-lg text-gray-600 text-center">
+      <p class="mt-4 text-lg text-gray-700 text-center">
         Encuentra respuestas a las preguntas más comunes
       </p>
       
@@ -43,14 +43,14 @@ const faqs = [
           <h3 class="text-lg font-semibold text-gray-900">
             {{ faq.question }}
           </h3>
-          <p class="mt-2 text-gray-600">
+          <p class="mt-2 text-gray-700">
             {{ faq.answer }}
           </p>
         </UCard>
       </div>
       
       <div class="mt-12 text-center">
-        <p class="text-gray-600">¿Tienes más preguntas?</p>
+        <p class="text-gray-700">¿Tienes más preguntas?</p>
         <UButton to="/contacto" color="primary" class="mt-4">
           Contáctanos
         </UButton>
