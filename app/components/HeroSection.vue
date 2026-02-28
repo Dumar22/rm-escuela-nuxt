@@ -42,8 +42,8 @@ useHead({
       class="naranja-circulo naranja-c3 absolute rounded-full pointer-events-none"
       style="
         background-color: #ea580c;
-        width: clamp(70px, 9.5vw, 135px);
-        height: clamp(70px, 9.5vw, 135px);
+        width: clamp(95px, 13vw, 175px);
+        height: clamp(95px, 13vw, 175px);
         right: clamp(-30px, -3.5vw, -8px);
         top: clamp(220px, 32vw, 430px);
         z-index: 1;
