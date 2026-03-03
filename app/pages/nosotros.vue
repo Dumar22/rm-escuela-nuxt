@@ -89,7 +89,7 @@ useHead({
           </div>
 
           <!-- Imagen -->
-          <div class="rounded-3xl overflow-hidden shadow-xl">
+          <div class="rounded-3xl overflow-hidden shadow-xl" style="aspect-ratio: 4/5;">
             <NuxtImg
               src="/quienes-somos.jpg"
               alt="RM Escuela Creativa – Quiénes Somos"
@@ -114,7 +114,7 @@ useHead({
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
           <!-- Imagen — izquierda -->
-          <div class="rounded-3xl overflow-hidden shadow-xl">
+          <div class="rounded-3xl overflow-hidden shadow-xl" style="aspect-ratio: 4/5;">
             <NuxtImg
               src="/director.jpg"
               alt="Ricardo Muñoz A. – Director RM Escuela Creativa"

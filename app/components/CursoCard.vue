@@ -14,7 +14,7 @@ defineProps<{
     :class="{ 'curso-card--destacado': destacado }"
   >
     <!-- Imagen — sin badges encima, sin recorte forzado -->
-    <div class="curso-card__img relative overflow-hidden bg-gray-100">
+    <div class="curso-card__img relative overflow-hidden bg-gray-100" style="aspect-ratio: 3/4;">
       <NuxtImg
         :src="curso.image"
         :alt="curso.title"

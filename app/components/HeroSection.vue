@@ -169,7 +169,7 @@ useHead({
           quality="90"
           fetchpriority="high"
           loading="eager"
-          style="width: clamp(200px, 28vw, 470px); height: auto; object-fit: contain; object-position: left; margin-top: clamp(-8px, -0.8vw, -4px);"
+          style="width: clamp(200px, 28vw, 470px); aspect-ratio: 600/340; object-fit: contain; object-position: left; margin-top: clamp(-8px, -0.8vw, -4px);"
         />
 
         <div style="margin-top: clamp(10px, 1.5vw, 24px);">
