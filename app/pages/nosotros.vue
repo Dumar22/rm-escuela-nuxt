@@ -6,123 +6,222 @@ const values = [
     description: 'Nos comprometemos con la más alta calidad en educación creativa'
   },
   {
-    icon: 'i-lucide-heart',
-    title: 'Pasión',
-    description: 'Amamos lo que hacemos y lo transmitimos a nuestros estudiantes'
+    icon: 'i-lucide-zap',
+    title: 'Learning by Doing',
+    description: 'Aprendemos creando: proyectos reales desde el primer día'
   },
   {
     icon: 'i-lucide-target',
-    title: 'Innovación',
-    description: 'Siempre a la vanguardia de las tendencias y metodologías'
+    title: 'Vanguardia',
+    description: 'Tendencias globales conectadas con el estilo propio de cada estudiante'
   },
   {
     icon: 'i-lucide-users',
     title: 'Comunidad',
-    description: 'Creamos una red de apoyo entre estudiantes y profesionales'
+    description: 'Una red creativa que trasciende fronteras y culturas'
   }
 ]
 
 const stats = [
-  { value: '2000+', label: 'Estudiantes Graduados' },
-  { value: '13', label: 'Programas Formativos' },
-  { value: '85%', label: 'Tasa de Empleabilidad' },
-  { value: '10+', label: 'Años de Experiencia' }
+  { value: '22', label: 'Años en el mercado' },
+  { value: '13', label: 'Programas formativos' },
+  { value: '2000+', label: 'Estudiantes formados' },
+  { value: '10+', label: 'Países con presencia' }
 ]
 
 useSeoMeta({
-  title: 'Nosotros - RM Escuela Creativa',
-  description: 'Conoce nuestra historia, valores y el equipo que hace posible RM Escuela Creativa de Artes y Moda.'
+  title: 'Nosotros – RM Escuela Creativa de Artes & Moda',
+  description: 'Con 22 años en el mercado colombiano, en RM Escuela Creativa formamos la nueva generación de talentos en moda, arte, emprendimiento y tendencias de mercados.'
+})
+
+useHead({
+  link: [
+    { rel: 'preload', as: 'image', href: '/quienes-somos.jpg', fetchpriority: 'high' },
+    { rel: 'preload', as: 'image', href: '/director.jpg', fetchpriority: 'high' }
+  ]
 })
 </script>
 
 <template>
   <div>
-    <!-- Hero -->
-    <section class="relative bg-black text-white overflow-hidden">
-      <div class="absolute inset-0 bg-gradient-to-br from-orange-500/20 via-black to-slate-950" />
-      <div class="relative mx-auto max-w-7xl px-6 lg:px-8 py-20">
-        <div class="mx-auto max-w-2xl text-center">
-          <h1 class="text-4xl font-display font-bold tracking-tight sm:text-5xl mb-6">
-            Sobre Nosotros
-          </h1>
-          <p class="text-xl text-gray-200">
-            Más de 10 años transformando vidas a través de la educación creativa
-          </p>
+
+    <!-- ── QUIÉNES SOMOS: imagen + texto ── -->
+    <section class="py-16 sm:py-24 bg-white">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+          <!-- Texto -->
+          <div class="flex flex-col justify-center">
+            <!-- Eyebrow badge -->
+            <span class="inline-block self-start px-4 py-1 rounded-full bg-orange-100 text-orange-600 text-sm font-semibold uppercase tracking-widest mb-5">
+              ¡SOMOS!
+            </span>
+
+            <h1 class="text-4xl sm:text-5xl font-display font-black uppercase leading-none tracking-tight text-gray-950 mb-6">
+              RM Modelos<br>
+              <span class="text-orange-600">Escuela Creativa</span><br>
+              de Artes y Moda
+            </h1>
+
+            <div class="space-y-5 text-base sm:text-lg text-gray-700 leading-relaxed">
+              <p>
+                Con <strong class="text-gray-900">22 años en el mercado colombiano</strong> y trayectoria en diversos países de América y Europa, somos una comunidad creativa y vanguardista dedicada a formar a la nueva generación de talentos en las industrias de la moda, el arte, el emprendimiento y las tendencias de mercados.
+              </p>
+              <p>
+                Nuestra esencia se basa en el <strong class="text-gray-900">aprendizaje práctico</strong>: creemos que la mejor forma de aprender es haciendo (<em>learning by doing</em>). Por eso, cada uno de nuestros cursos, talleres, diplomados y workshops está diseñado para que nuestros estudiantes aprendan creando, experimentando y desarrollando proyectos reales desde el primer día y en el tiempo verdaderamente necesario.
+              </p>
+              <p>
+                Nuestra metodología conecta la teoría con la acción, fomentando el pensamiento crítico, la innovación y el trabajo colaborativo. Nos inspiran las tendencias globales, pero también el estilo propio de cada estudiante, acompañándolos en el proceso de descubrir y potenciar su identidad creativa.
+              </p>
+            </div>
+
+            <!-- CTA -->
+            <div class="mt-8">
+              <UButton
+                to="/cursos"
+                color="primary"
+                size="lg"
+                trailing-icon="i-lucide-arrow-right"
+              >
+                Explorar cursos
+              </UButton>
+            </div>
+          </div>
+
+          <!-- Imagen -->
+          <div class="rounded-3xl overflow-hidden shadow-xl">
+            <NuxtImg
+              src="/quienes-somos.jpg"
+              alt="RM Escuela Creativa – Quiénes Somos"
+              width="800"
+              height="1000"
+              format="webp"
+              quality="85"
+              fetchpriority="high"
+              loading="eager"
+              preload
+              class="w-full h-full object-cover"
+            />
+          </div>
+
         </div>
       </div>
     </section>
 
-    <!-- Historia -->
-    <section class="py-24 sm:py-32">
+    <!-- ── DIRECTOR ── -->
+    <section class="py-16 sm:py-24 bg-gray-50">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <div class="mx-auto max-w-3xl">
-          <h2 class="text-3xl font-display font-bold tracking-tight text-gray-900 sm:text-4xl mb-6">
-            Nuestra Historia
-          </h2>
-          <div class="space-y-6 text-lg text-gray-700">
-            <p>
-              RM Escuela Creativa de Artes y Moda nació en 2015 con un sueño: democratizar el acceso 
-              a la educación en artes, moda y diseño en Colombia. Desde entonces, hemos formado a más 
-              de 2,000 estudiantes que hoy son profesionales destacados en la industria.
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+          <!-- Imagen — izquierda -->
+          <div class="rounded-3xl overflow-hidden shadow-xl">
+            <NuxtImg
+              src="/director.jpg"
+              alt="Ricardo Muñoz A. – Director RM Escuela Creativa"
+              width="800"
+              height="1000"
+              format="webp"
+              quality="85"
+              fetchpriority="high"
+              loading="eager"
+              preload
+              class="w-full h-full object-cover"
+            />
+          </div>
+
+          <!-- Texto — derecha -->
+          <div class="flex flex-col justify-center">
+            <span class="inline-block self-start px-4 py-1 rounded-full bg-orange-100 text-orange-600 text-sm font-semibold uppercase tracking-widest mb-5">
+              Nuestro Director
+            </span>
+
+            <h2 class="text-3xl sm:text-4xl font-display font-black uppercase leading-tight tracking-tight text-gray-950 mb-1">
+              Ricardo Muñoz A.
+            </h2>
+            <p class="text-orange-500 font-semibold text-sm uppercase tracking-widest mb-6">
+              Fundador & Director General
             </p>
-            <p>
-              Nuestra filosofía se basa en la combinación de teoría y práctica, con profesores que son 
-              profesionales activos en sus campos. Creemos que la mejor forma de aprender es haciendo, 
-              por eso nuestros cursos son altamente prácticos y orientados al mundo real.
-            </p>
-            <p>
-              Ubicados en el corazón de Medellín, nos enorgullecemos de ser parte de una de las ciudades 
-              más innovadoras de Latinoamérica, y llevamos ese espíritu innovador a cada uno de nuestros programas.
-            </p>
+
+            <div class="space-y-4 text-base sm:text-lg text-gray-700 leading-relaxed">
+              <p>
+                Con más de <strong class="text-gray-900">25 años de experiencia</strong> en la ejecución de proyectos, logística, fotografía, moda, campo comercial, social, consultoría de coolhunting y visual merchandising, ha desarrollado un agudo sentido para detectar y anticipar tendencias de mercado.
+              </p>
+              <p>
+                Sus habilidades clave incluyen la gestión estratégica de exhibiciones visuales y el análisis del comportamiento social y del consumidor. Motivado para aportar experiencia y creatividad a sus alumnos, aplicando uno de los mejores modelos de aprendizaje: <em>learning by doing</em> (aprender haciendo).
+              </p>
+              <p>
+                Desde este enfoque, busca contribuir significativamente al desarrollo de nuevos profesionales en las áreas de moda, ejecución, investigación de tendencias y estrategias de mercado, así como en campañas para incrementar el impacto visual y comercial de la marca, producto o cliente.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ESTADÍSTICAS ── -->
+    <section class="bg-gray-950 py-16 sm:py-20">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="grid grid-cols-2 gap-8 lg:grid-cols-4 text-center">
+          <div v-for="stat in stats" :key="stat.label">
+            <div class="text-5xl font-display font-black text-orange-500 mb-2">
+              {{ stat.value }}
+            </div>
+            <div class="text-gray-300 text-sm font-medium uppercase tracking-wide">{{ stat.label }}</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Valores -->
-    <section class="bg-gray-50 py-24 sm:py-32">
+    <!-- ── VALORES ── -->
+    <section class="bg-gray-50 py-20 sm:py-28">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <div class="mx-auto max-w-2xl text-center mb-16">
+        <div class="mx-auto max-w-2xl text-center mb-14">
+          <span class="inline-block px-4 py-1 rounded-full bg-orange-100 text-orange-600 text-sm font-semibold uppercase tracking-widest mb-4">
+            Nuestra esencia
+          </span>
           <h2 class="text-3xl font-display font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Nuestros Valores
+            Lo que nos define
           </h2>
           <p class="mt-4 text-lg leading-8 text-gray-700">
-            La base de todo lo que hacemos
+            Los pilares que guían cada clase, taller y proyecto
           </p>
         </div>
         <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          <UCard
+          <div
             v-for="value in values"
             :key="value.title"
-            class="text-center"
+            class="group bg-white rounded-2xl p-7 shadow-sm border border-gray-100 text-center hover:-translate-y-1 hover:shadow-lg hover:shadow-orange-100/60 transition-all duration-300"
           >
-            <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-orange-100">
-              <UIcon :name="value.icon" class="h-8 w-8 text-orange-500" />
+            <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-orange-100 group-hover:bg-orange-500 transition-colors duration-300">
+              <UIcon :name="value.icon" class="h-7 w-7 text-orange-500 group-hover:text-white transition-colors duration-300" />
             </div>
-            <h3 class="text-xl font-display font-bold mb-2">{{ value.title }}</h3>
-            <p class="text-gray-700">{{ value.description }}</p>
-          </UCard>
-        </div>
-      </div>
-    </section>
-
-    <!-- Estadísticas -->
-    <section class="py-24 sm:py-32">
-      <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <div class="mx-auto max-w-2xl text-center mb-16">
-          <h2 class="text-3xl font-display font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Nuestro Impacto
-          </h2>
-        </div>
-        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 text-center">
-          <div v-for="stat in stats" :key="stat.label">
-            <div class="text-5xl font-display font-bold text-orange-500 mb-2">
-              {{ stat.value }}
-            </div>
-            <div class="text-gray-700">{{ stat.label }}</div>
+            <h3 class="text-lg font-display font-bold mb-2 text-gray-900 group-hover:text-orange-600 transition-colors duration-300">{{ value.title }}</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">{{ value.description }}</p>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- ── CTA FINAL ── -->
+    <section class="py-20 sm:py-28 bg-white">
+      <div class="mx-auto max-w-3xl px-6 text-center">
+        <h2 class="text-3xl font-display font-bold text-gray-900 sm:text-4xl mb-4">
+          ¿Listo para desarrollar tu talento?
+        </h2>
+        <p class="text-lg text-gray-700 mb-8">
+          Únete a miles de estudiantes que ya transformaron su pasión en una carrera profesional.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <UButton to="/cursos" color="primary" size="xl" trailing-icon="i-lucide-arrow-right">
+            Ver todos los cursos
+          </UButton>
+          <UButton to="/contacto" variant="outline" color="primary" size="xl">
+            Contáctanos
+          </UButton>
+        </div>
+      </div>
+    </section>
+
   </div>
 </template>

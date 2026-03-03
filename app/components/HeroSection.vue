@@ -1,9 +1,10 @@
 <script setup lang="ts">
-// Preload de las dos imágenes críticas del hero (LCP)
+// Preload de las imágenes críticas del hero (LCP)
 useHead({
   link: [
     { rel: 'preload', as: 'image', href: '/silueta.png', fetchpriority: 'high', type: 'image/webp' },
-    { rel: 'preload', as: 'image', href: '/rm-texto.png', fetchpriority: 'high', type: 'image/webp' }
+    { rel: 'preload', as: 'image', href: '/rm-texto.png', fetchpriority: 'high', type: 'image/webp' },
+    { rel: 'preload', as: 'image', href: '/rm-img.jpg', fetchpriority: 'high' }
   ]
 })
 </script>
@@ -160,28 +161,16 @@ useHead({
           z-index: 4;
         "
       >
-        <div style="margin-bottom: clamp(4px, 0.8vw, 12px);">
-          <NuxtImg
-            src="/rm-texto.png"
-            alt="RM"
-            width="400"
-            height="140"
-            format="webp"
-            quality="90"
-            fetchpriority="high"
-            loading="eager"
-            preload
-            class="rm-logo"
-            style="width: clamp(200px, 28vw, 470px); height: auto; object-fit: contain; object-position: left;"
-          />
-        </div>
-
-        <h1
-          class="titulo-modelos font-display text-black tracking-wide leading-none"
-          style="font-size: clamp(3rem, 9vw, 8.5rem); margin-top: clamp(-8px, -0.8vw, -4px);"
-        >
-          Modelos
-        </h1>
+        <NuxtImg
+          src="/rm-img.jpg"
+          alt="RM Modelos"
+          width="600"
+          height="340"
+          quality="90"
+          fetchpriority="high"
+          loading="eager"
+          style="width: clamp(200px, 28vw, 470px); height: auto; object-fit: contain; object-position: left; margin-top: clamp(-8px, -0.8vw, -4px);"
+        />
 
         <div style="margin-top: clamp(10px, 1.5vw, 24px);">
           <div class="subtexto-wrap" style="display: inline-block; width: fit-content; margin-left: clamp(-60px, -6vw, -120px);">
