@@ -3,6 +3,7 @@ const navigation = [
   { label: 'Inicio', to: '/' },
   { label: 'Cursos', to: '/cursos' },
   { label: 'Nosotros', to: '/nosotros' },
+  { label: 'Blog', to: '/blog' },
   { label: 'Contacto', to: '/contacto' }
 ]
 

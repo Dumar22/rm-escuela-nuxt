@@ -2,18 +2,18 @@
 const contactInfo = [
   {
     icon: 'i-lucide-map-pin',
-    title: 'Dirección',
-    lines: ['Calle 10 #45-67', 'El Poblado, Medellín', 'Antioquia, Colombia']
+    title: 'Ubicación',
+    lines: ['Manizales', 'Pereira', 'Medellín']
   },
   {
     icon: 'i-lucide-phone',
     title: 'Teléfono',
-    lines: ['+57 (4) 123 4567', 'WhatsApp: +57 300 123 4567']
+    lines: ['WhatsApp: +57 301 665 5918']
   },
   {
     icon: 'i-lucide-mail',
     title: 'Email',
-    lines: ['info@rmescuela.com', 'admisiones@rmescuela.com']
+    lines: ['spaziointerior13@gmail.com']
   },
   {
     icon: 'i-lucide-clock',
@@ -23,7 +23,6 @@ const contactInfo = [
 ]
 
 const courseOptions = [
-  { label: 'Selecciona un curso', value: '' },
   { label: 'Fotografía de Moda', value: 'fotografia-moda' },
   { label: 'Visual Merchandising', value: 'visual-merchandising' },
   { label: 'Modelo Profesional', value: 'modelo-profesional' },
@@ -129,7 +128,7 @@ useSeoMeta({
                 <UInput
                   v-model="form.phone"
                   type="tel"
-                  placeholder="+57 300 123 4567"
+                  placeholder="+57 301 665 5918"
                   size="lg"
                 />
               </UFormField>
@@ -138,6 +137,7 @@ useSeoMeta({
                 <USelect
                   v-model="form.course"
                   :items="courseOptions"
+                  placeholder="Selecciona un curso"
                   size="lg"
                 />
               </UFormField>
@@ -166,7 +166,7 @@ useSeoMeta({
                 color="primary"
                 variant="subtle"
                 title="¿Prefieres WhatsApp?"
-                description="También puedes escribirnos directamente al +57 300 123 4567"
+                description="También puedes escribirnos directamente al +57 301 665 5918"
                 icon="i-simple-icons-whatsapp"
               />
             </div>

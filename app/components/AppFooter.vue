@@ -8,6 +8,7 @@ const navigation = {
   ],
   empresa: [
     { label: 'Nosotros', to: '/nosotros' },
+    { label: 'Blog y Novedades', to: '/blog' },
     { label: 'Contacto', to: '/contacto' },
     { label: 'Preguntas Frecuentes', to: '/faq' }
   ],
@@ -16,8 +17,8 @@ const navigation = {
     { label: 'Política de Privacidad', to: '/privacidad' }
   ],
   social: [
-    { label: 'Facebook', href: '#', icon: 'i-simple-icons-facebook' },
-    { label: 'Instagram', href: '#', icon: 'i-simple-icons-instagram' },
+    { label: 'Facebook', href: 'https://www.facebook.com/share/1Cezb2H3io/', icon: 'i-simple-icons-facebook' },
+    { label: 'Instagram', href: 'https://www.instagram.com/RM_modelos', icon: 'i-simple-icons-instagram' },
     { label: 'YouTube', href: '#', icon: 'i-simple-icons-youtube' }
   ]
 }
@@ -48,6 +49,8 @@ const currentYear = new Date().getFullYear()
               v-for="item in navigation.social"
               :key="item.label"
               :href="item.href"
+              target="_blank"
+              rel="noopener noreferrer"
               class="text-gray-400 hover:text-orange-400 transition-colors"
             >
               <span class="sr-only">{{ item.label }}</span>
@@ -112,15 +115,15 @@ const currentYear = new Date().getFullYear()
               <ul role="list" class="mt-6 space-y-4">
                 <li class="flex items-center gap-2 text-sm text-gray-300">
                   <UIcon name="i-lucide-mail" class="h-4 w-4 text-orange-400" />
-                  info@rmescuela.com
+                  spaziointerior13@gmail.com
                 </li>
                 <li class="flex items-center gap-2 text-sm text-gray-300">
                   <UIcon name="i-lucide-phone" class="h-4 w-4 text-orange-400" />
-                  +57 300 123 4567
+                  +57 301 665 5918
                 </li>
                 <li class="flex items-start gap-2 text-sm text-gray-300">
                   <UIcon name="i-lucide-map-pin" class="h-4 w-4 text-orange-400 mt-0.5" />
-                  <span>Medellín, Colombia</span>
+                  <span>Manizales - Pereira - Medellín</span>
                 </li>
               </ul>
             </div>

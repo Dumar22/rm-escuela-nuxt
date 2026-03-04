@@ -9,7 +9,6 @@ const parrafos = computed(() =>
 )
 
 // "STREET ART POP · CREADOR DE..." → línea grande / línea pequeña
-const subtitleLinea = computed(() => curso.value?.subtitle.split('·')[0]?.trim() ?? '')
 const subtitleTag   = computed(() => curso.value?.subtitle.split('·').slice(1).join('·').trim() ?? '')
 
 const isPensumOpen = ref(false)
@@ -68,14 +67,6 @@ useSeoMeta({
               >
                 {{ curso.title }}
               </h1>
-
-              <p
-                v-if="subtitleLinea"
-                class="font-display font-black uppercase leading-none tracking-tight text-gray-950 text-center mt-1 w-full"
-                style="font-size: clamp(1.3rem, 2.1vw, 2.1rem);"
-              >
-                {{ subtitleLinea }}
-              </p>
 
               <p
                 v-if="subtitleTag"
@@ -185,9 +176,6 @@ useSeoMeta({
             <h1 class="text-4xl font-display font-black uppercase leading-tight text-gray-950 text-center">
               {{ curso.title }}
             </h1>
-            <p v-if="subtitleLinea" class="text-2xl font-display font-black uppercase leading-tight text-gray-950 text-center mt-1">
-              {{ subtitleLinea }}
-            </p>
             <p v-if="subtitleTag" class="text-xs font-bold uppercase tracking-widest text-gray-500 text-center mt-2 mb-6">
               {{ subtitleTag }}
             </p>
@@ -293,13 +281,10 @@ useSeoMeta({
                 <h1 class="text-4xl sm:text-5xl font-display font-black uppercase leading-tight tracking-tight text-gray-950 mb-1">
                   {{ curso.title }}
                 </h1>
-                <p v-if="subtitleLinea" class="text-2xl font-display font-black uppercase leading-tight text-gray-950 mb-1">
-                  {{ subtitleLinea }}
-                </p>
-                <p v-if="subtitleTag" class="text-xs font-bold tracking-widest uppercase text-gray-500 mb-6">
+                <p v-if="subtitleTag" class="text-xs font-bold tracking-widest uppercase text-gray-500 mb-6 mt-2">
                   {{ subtitleTag }}
                 </p>
-                <div v-else class="mb-6" />
+                <div v-else class="mb-6 mt-2" />
 
                 <div class="w-10 h-0.5 mb-6" :style="{ backgroundColor: curso.categoryColor }" />
 

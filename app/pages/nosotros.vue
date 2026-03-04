@@ -159,6 +159,50 @@ useHead({
       </div>
     </section>
 
+    <!-- ── CONECTA CON TU PASIÓN ── -->
+    <section class="py-16 sm:py-24 bg-white">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          
+          <!-- Texto — izquierda -->
+          <div class="flex flex-col justify-center order-2 lg:order-1">
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-display font-black uppercase leading-tight tracking-tight text-gray-950 mb-2">
+              ¡Conecta con aquello que te apasiona!
+            </h2>
+            <p class="text-orange-500 font-bold sm:text-lg uppercase tracking-wider mb-6">
+              Impulsamos creatividad, talento, emprendimiento y sueños
+            </p>
+
+            <div class="space-y-4 text-base sm:text-lg text-gray-700 leading-relaxed text-justify">
+              <p>
+                Estamos enfocados en capacitar con conciencia y a la vanguardia de las tendencias de un nuevo mundo digital, con nuevas carreras que impactan en el desarrollo de una nueva generación que está en busca de nuevas alternativas que brinden el espacio para aprender y emprender.
+              </p>
+              <p>
+                Al mismo tiempo, buscamos que disfruten del mundo y la vida con resiliencia, sueños, filantropía, cooperativismo y emprendimiento para un mundo mejor, apoyando siempre a quien no tiene las oportunidades económicas para realizar sus sueños profesionales.
+              </p>
+            </div>
+          </div>
+
+          <!-- Imagen — derecha -->
+          <div class="flex flex-col justify-center items-center order-1 lg:order-2 px-8 sm:px-0 w-full overflow-hidden">
+            <h3 class="w-full max-w-[400px] text-center shrink-0 font-sans font-light uppercase text-gray-900 mb-0 relative z-10 text-[18px] sm:text-[23px] tracking-[0.1em] sm:tracking-[0.2em] whitespace-nowrap">
+              Fundación Internacional
+            </h3>
+            <NuxtImg
+              src="/logo-que.png"
+              alt="Impulsamos creatividad y talento"
+              width="600"
+              height="600"
+              format="webp"
+              quality="90"
+              class="-mt-4 sm:-mt-6 w-full max-w-md h-auto object-contain drop-shadow-xl"
+            />
+          </div>
+
+        </div>
+      </div>
+    </section>
+
     <!-- ── ESTADÍSTICAS ── -->
     <section class="bg-gray-950 py-16 sm:py-20">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
