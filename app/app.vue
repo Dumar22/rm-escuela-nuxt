@@ -6,6 +6,7 @@
         <NuxtPage />
       </main>
       <AppFooter />
+      <CookieBanner />
 
       <!-- Botón Flotante de WhatsApp -->
       <a
