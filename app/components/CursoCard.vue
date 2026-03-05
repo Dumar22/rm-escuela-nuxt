@@ -13,8 +13,8 @@ defineProps<{
     class="curso-card group block rounded-2xl overflow-hidden bg-white shadow-md hover:shadow-2xl transition-all duration-400"
     :class="{ 'curso-card--destacado': destacado }"
   >
-    <!-- Imagen — sin badges encima, sin recorte forzado -->
-    <div class="curso-card__img relative overflow-hidden bg-gray-100" style="aspect-ratio: 3/4;">
+    <!-- Imagen — sin badges encima -->
+    <div class="curso-card__img relative overflow-hidden bg-gray-100 aspect-video md:aspect-[3/4]">
       <NuxtImg
         :src="curso.image"
         :alt="curso.title"
@@ -23,7 +23,7 @@ defineProps<{
         format="webp"
         quality="80"
         loading="lazy"
-        class="w-full object-cover transition-transform duration-500 group-hover:scale-105"
+        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 object-top"
       />
 
       <!-- Overlay sutil en hover -->
@@ -83,12 +83,10 @@ defineProps<{
 
 <style scoped>
 .curso-card__img {
-  /* Sin aspect-ratio forzado: la imagen muestra su altura natural */
   overflow: hidden;
 }
 .curso-card__img img {
   width: 100%;
-  height: auto;
   display: block;
 }
 </style>
