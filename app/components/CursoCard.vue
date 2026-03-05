@@ -44,11 +44,11 @@ defineProps<{
 
       <!-- Modalidad -->
       <div class="flex flex-wrap items-center gap-2 mb-3">
-        <span
-          class="px-2.5 py-0.5 rounded-full text-sm font-semibold"
-          :class="curso.modality === 'Virtual' ? 'bg-blue-100 text-blue-700' : curso.modality === 'Híbrido' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-700'"
-        >
-          {{ curso.modality }}
+        <span class="px-2.5 py-0.5 rounded-full text-xs sm:text-sm font-semibold bg-blue-100 text-blue-700">
+          Virtual
+        </span>
+        <span class="px-2.5 py-0.5 rounded-full text-xs sm:text-sm font-semibold bg-green-100 text-green-700">
+          Presencial
         </span>
       </div>
 

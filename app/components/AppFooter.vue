@@ -119,7 +119,7 @@ const currentYear = new Date().getFullYear()
                 </li>
                 <li class="flex items-center gap-2 text-sm text-gray-300">
                   <UIcon name="i-lucide-phone" class="h-4 w-4 text-orange-400" />
-                  +57 301 665 5918
+                  +57 301 655 5918
                 </li>
                 <li class="flex items-start gap-2 text-sm text-gray-300">
                   <UIcon name="i-lucide-map-pin" class="h-4 w-4 text-orange-400 mt-0.5" />

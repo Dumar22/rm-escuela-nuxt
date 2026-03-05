@@ -57,13 +57,13 @@ useHead({
               ¡SOMOS!
             </span>
 
-            <h1 class="text-4xl sm:text-5xl font-display font-black uppercase leading-none tracking-tight text-gray-950 mb-6">
+            <h1 class="text-3xl sm:text-4xl font-display font-black uppercase leading-tight tracking-tight text-gray-950 mb-1">
               RM Modelos<br>
               <span class="text-orange-600">Escuela Creativa</span><br>
               de Artes y Moda
             </h1>
 
-            <div class="space-y-5 text-base sm:text-lg text-gray-700 leading-relaxed">
+            <div class="space-y-5 text-base sm:text-lg text-gray-700 leading-relaxed mt-4">
               <p>
                 Con <strong class="text-gray-900">22 años en el mercado colombiano</strong> y trayectoria en diversos países de América y Europa, somos una comunidad creativa y vanguardista dedicada a formar a la nueva generación de talentos en las industrias de la moda, el arte, el emprendimiento y las tendencias de mercados.
               </p>
@@ -138,7 +138,7 @@ useHead({
             <h2 class="text-3xl sm:text-4xl font-display font-black uppercase leading-tight tracking-tight text-gray-950 mb-1">
               Ricardo Muñoz A.
             </h2>
-            <p class="text-orange-500 font-semibold text-sm uppercase tracking-widest mb-6">
+            <p class="text-orange-500 font-bold sm:text-lg uppercase tracking-wider mb-6">
               Fundador & Director General
             </p>
 
@@ -162,15 +162,15 @@ useHead({
     <!-- ── CONECTA CON TU PASIÓN ── -->
     <section class="py-16 sm:py-24 bg-white">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           
           <!-- Texto — izquierda -->
           <div class="flex flex-col justify-center order-2 lg:order-1">
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-display font-black uppercase leading-tight tracking-tight text-gray-950 mb-2">
-              ¡Conecta con aquello que te apasiona!
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-display font-black uppercase leading-tight tracking-tight text-gray-950 mb-2">
+              Fundación Internacional generación que!
             </h2>
             <p class="text-orange-500 font-bold sm:text-lg uppercase tracking-wider mb-6">
-              Impulsamos creatividad, talento, emprendimiento y sueños
+              En busca de una alternativa joven
             </p>
 
             <div class="space-y-4 text-base sm:text-lg text-gray-700 leading-relaxed text-justify">
@@ -180,11 +180,15 @@ useHead({
               <p>
                 Al mismo tiempo, buscamos que disfruten del mundo y la vida con resiliencia, sueños, filantropía, cooperativismo y emprendimiento para un mundo mejor, apoyando siempre a quien no tiene las oportunidades económicas para realizar sus sueños profesionales.
               </p>
+
+              <h3 class="text-gray-900 font-bold sm:text-lg uppercase tracking-wider mb-6">
+              ¡Conecta con aquello que te apasiona!
+            </h3>
             </div>
           </div>
 
           <!-- Imagen — derecha -->
-          <div class="flex flex-col justify-center items-center order-1 lg:order-2 px-8 sm:px-0 w-full overflow-hidden">
+          <div class="flex flex-col justify-center items-center order-1 lg:order-2 px-8 sm:px-0 w-full overflow-hidden">                          
             <h3 class="w-full max-w-[400px] text-center shrink-0 font-sans font-light uppercase text-gray-900 mb-0 relative z-10 text-[18px] sm:text-[23px] tracking-[0.1em] sm:tracking-[0.2em] whitespace-nowrap">
               Fundación Internacional
             </h3>

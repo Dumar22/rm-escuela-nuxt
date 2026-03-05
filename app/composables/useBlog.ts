@@ -1,6 +1,34 @@
 export const useBlog = () => {
   const posts = ref([
     {
+      id: '4',
+      slug: 'pasarela-urban-manizales-moda',
+      title: 'Pasarela Urban "Manizales Está de Moda"',
+      excerpt: 'RM Modelos se prepara para uno de los eventos más grandes de la ciudad. Acompáñanos este 10, 11 y 12 de septiembre en una pasarela que marcará la pauta.',
+      content: `
+        La moda urbana se toma la ciudad. Este próximo **10, 11 y 12 de septiembre**, la capital caldense vivirá uno de los eventos más esperados del año: la **Pasarela Urban "Manizales Está de Moda"**.
+
+        Con una apuesta agresiva, contemporánea y llena de talento local, **RM Modelos** asume la organización total de este evento que busca descentralizar el diseño y llevar la creatividad directamente a las calles con un estilo "Urban". 
+
+        ### ¿Qué veremos en la pasarela?
+        Durante tres días, el talento estará a flor de piel:
+        - **Día 1 (10 de Sep):** Apertura de colecciones urbanas, enfocada en Streetwear y diseñadores emergentes de Manizales y el eje cafetero.
+        - **Día 2 (11 de Sep):** Colecciones cápsula de marcas aliadas y muestras experimentales lideradas por los talentos de nuestra agencia RM.
+        - **Día 3 (12 de Sep):** Gran cierre con la mejor selección de modelos, propuestas vanguardistas y música en vivo.
+
+        ### Una plataforma para talentos
+        Para **RM Modelos**, encabezar la producción de "Manizales Está de Moda" es un compromiso firme con la profesionalización de la industria en la región. Las mejores caras de nuestra escuela y agencia estarán pisando la pasarela, demostrando que en Manizales existe el talento, la actitud y la disciplina necesaria para las grandes ligas.
+
+        **¡No te lo puedes perder!** Mantente atento a nuestras redes sociales para la revelación del lineup completo de diseñadores, venta de entradas e itinerario oficial.
+      `,
+      author: 'RM Familia',
+      authorRole: 'Organización',
+      date: 'Septiembre 2026',
+      category: 'Eventos',
+      imageUrl: '/images/blog/pasarela_urban_manizales.jpg',
+      readTime: '3 min de lectura'
+    },
+    {
       id: '1',
       slug: 'tendencias-fotografia-moda-2026',
       title: 'Tendencias en Fotografía de Moda para 2026',

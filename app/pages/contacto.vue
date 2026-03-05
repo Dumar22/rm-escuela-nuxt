@@ -8,7 +8,7 @@ const contactInfo = [
   {
     icon: 'i-lucide-phone',
     title: 'Teléfono',
-    lines: ['WhatsApp: +57 301 665 5918']
+    lines: ['WhatsApp: +57 301 655 5918']
   },
   {
     icon: 'i-lucide-mail',
@@ -128,7 +128,7 @@ useSeoMeta({
                 <UInput
                   v-model="form.phone"
                   type="tel"
-                  placeholder="+57 301 665 5918"
+                  placeholder="+57 301 655 5918"
                   size="lg"
                 />
               </UFormField>
@@ -166,7 +166,7 @@ useSeoMeta({
                 color="primary"
                 variant="subtle"
                 title="¿Prefieres WhatsApp?"
-                description="También puedes escribirnos directamente al +57 301 665 5918"
+                description="También puedes escribirnos directamente al +57 301 655 5918"
                 icon="i-simple-icons-whatsapp"
               />
             </div>

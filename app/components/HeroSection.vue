@@ -52,79 +52,84 @@ useHead({
     />
 
     <!-- Círculo gris 1 — Creatividad -->
-    <div
-      class="gris-circulo gris-c1 absolute flex items-center justify-center text-center rounded-full shadow-sm pointer-events-none"
+    <NuxtLink
+      to="/blog?categoria=Creatividad"
+      class="gris-circulo gris-c1 absolute flex items-center justify-center text-center rounded-full shadow-sm transition-transform hover:scale-110 cursor-pointer"
       style="
         width: clamp(100px, 16vw, 200px);
         height: clamp(100px, 16vw, 200px);
         right: clamp(18px, 3vw, 50px);
         top: 0;
         background-color: rgba(209, 213, 219, 0.65);
-        z-index: 4;
+        z-index: 5;
       "
     >
       <span class="gris-label font-semibold text-gray-700 leading-tight" style="font-size: clamp(0.5rem, 1.05vw, 1.05rem); padding: clamp(4px, 0.8vw, 10px);">Creatividad</span>
-    </div>
+    </NuxtLink>
 
     <!-- Círculo gris 2 — Innovación -->
-    <div
-      class="gris-circulo gris-c2 absolute flex items-center justify-center text-center rounded-full shadow-sm pointer-events-none"
+    <NuxtLink
+      to="/blog?categoria=Innovacion"
+      class="gris-circulo gris-c2 absolute flex items-center justify-center text-center rounded-full shadow-sm transition-transform hover:scale-110 cursor-pointer"
       style="
         width: clamp(100px, 16vw, 200px);
         height: clamp(100px, 16vw, 200px);
         right: clamp(70px, 10vw, 130px);
         top: clamp(43px, 8.5vw, 108px);
         background-color: rgba(209, 213, 219, 0.55);
-        z-index: 4;
+        z-index: 5;
       "
     >
       <span class="gris-label font-semibold text-gray-700 leading-tight" style="font-size: clamp(0.5rem, 1.05vw, 1.05rem); padding: clamp(4px, 0.8vw, 10px);">Innovación</span>
-    </div>
+    </NuxtLink>
 
     <!-- Círculo gris 3 — Tendencias -->
-    <div
-      class="gris-circulo gris-c3 absolute flex items-center justify-center text-center rounded-full shadow-sm pointer-events-none"
+    <NuxtLink
+      to="/blog?categoria=Tendencias"
+      class="gris-circulo gris-c3 absolute flex items-center justify-center text-center rounded-full shadow-sm transition-transform hover:scale-110 cursor-pointer"
       style="
         width: clamp(100px, 16vw, 200px);
         height: clamp(100px, 16vw, 200px);
         right: clamp(45px, 7vw, 95px);
         top: clamp(86px, 16.5vw, 216px);
         background-color: rgba(209, 213, 219, 0.55);
-        z-index: 4;
+        z-index: 5;
       "
     >
       <span class="gris-label font-semibold text-gray-700 leading-tight" style="font-size: clamp(0.5rem, 1.05vw, 1.05rem); padding: clamp(4px, 0.8vw, 10px);">Tendencias</span>
-    </div>
+    </NuxtLink>
 
     <!-- Círculo gris 4 — Moda -->
-    <div
-      class="gris-circulo gris-c4 absolute flex items-center justify-center text-center rounded-full shadow-sm pointer-events-none"
+    <NuxtLink
+      to="/blog?categoria=Moda"
+      class="gris-circulo gris-c4 absolute flex items-center justify-center text-center rounded-full shadow-sm transition-transform hover:scale-110 cursor-pointer"
       style="
         width: clamp(100px, 16vw, 200px);
         height: clamp(100px, 16vw, 200px);
         right: clamp(18px, 3vw, 50px);
         top: clamp(129px, 24.5vw, 324px);
         background-color: rgba(209, 213, 219, 0.55);
-        z-index: 4;
+        z-index: 5;
       "
     >
       <span class="gris-label font-semibold text-gray-700 leading-tight" style="font-size: clamp(0.5rem, 1.05vw, 1.05rem); padding: clamp(4px, 0.8vw, 10px);">Moda</span>
-    </div>
+    </NuxtLink>
 
     <!-- Círculo gris 5 — Arte -->
-    <div
-      class="gris-circulo gris-c5 absolute flex items-center justify-center text-center rounded-full shadow-sm pointer-events-none"
+    <NuxtLink
+      to="/blog?categoria=Arte"
+      class="gris-circulo gris-c5 absolute flex items-center justify-center text-center rounded-full shadow-sm transition-transform hover:scale-110 cursor-pointer"
       style="
         width: clamp(100px, 16vw, 200px);
         height: clamp(100px, 16vw, 200px);
         right: clamp(-50px, -7vw, -25px);
         top: clamp(172px, 32.5vw, 432px);
         background-color: rgba(209, 213, 219, 0.65);
-        z-index: 4;
+        z-index: 5;
       "
     >
       <span class="gris-label font-semibold text-gray-700 leading-tight" style="font-size: clamp(0.5rem, 1.05vw, 1.05rem); padding: clamp(4px, 0.8vw, 10px);">Arte</span>
-    </div>
+    </NuxtLink>
 
     <!-- CONTENIDO PRINCIPAL -->
     <div
@@ -200,43 +205,48 @@ useHead({
     <!-- FILA INFERIOR DE CÍRCULOS — solo visible en móvil -->
     <div
       class="circulos-bottom-row absolute left-0 right-0 bottom-0 items-center justify-evenly px-3"
-      style="display: none; height: 90px; z-index: 5; padding-bottom: 8px; padding-top: 8px; background-color: #ea580c;"
+      style="display: none; height: 90px; z-index: 10; padding-bottom: 8px; padding-top: 8px; background-color: #ea580c; pointer-events: auto;"
     >
       <!-- Creatividad -->
-      <div
-        class="flex items-center justify-center text-center rounded-full shadow-sm flex-shrink-0"
+      <NuxtLink
+        to="/blog?categoria=Creatividad"
+        class="flex items-center justify-center text-center rounded-full shadow-sm flex-shrink-0 cursor-pointer transition-transform hover:scale-110 active:scale-95"
         style="width: min(16vw, 64px); height: min(16vw, 64px); background-color: rgba(255,255,255,0.28);"
       >
         <span class="font-semibold text-white leading-tight break-words text-center" style="font-size: clamp(0.45rem, 2.2vw, 0.6rem); padding: 4px; word-break: break-word;">Creatividad</span>
-      </div>
+      </NuxtLink>
       <!-- Innovación -->
-      <div
-        class="flex items-center justify-center text-center rounded-full shadow-sm flex-shrink-0"
+      <NuxtLink
+        to="/blog?categoria=Innovacion"
+        class="flex items-center justify-center text-center rounded-full shadow-sm flex-shrink-0 cursor-pointer transition-transform hover:scale-110 active:scale-95"
         style="width: min(16vw, 64px); height: min(16vw, 64px); background-color: rgba(255,255,255,0.18);"
       >
         <span class="font-semibold text-white leading-tight break-words text-center" style="font-size: clamp(0.45rem, 2.2vw, 0.6rem); padding: 4px; word-break: break-word;">Innovación</span>
-      </div>
+      </NuxtLink>
       <!-- Tendencias -->
-      <div
-        class="flex items-center justify-center text-center rounded-full shadow-sm flex-shrink-0"
+      <NuxtLink
+        to="/blog?categoria=Tendencias"
+        class="flex items-center justify-center text-center rounded-full shadow-sm flex-shrink-0 cursor-pointer transition-transform hover:scale-110 active:scale-95"
         style="width: min(16vw, 64px); height: min(16vw, 64px); background-color: rgba(255,255,255,0.18);"
       >
         <span class="font-semibold text-white leading-tight break-words text-center" style="font-size: clamp(0.45rem, 2.2vw, 0.6rem); padding: 4px; word-break: break-word;">Tendencias</span>
-      </div>
+      </NuxtLink>
       <!-- Moda -->
-      <div
-        class="flex items-center justify-center text-center rounded-full shadow-sm flex-shrink-0"
+      <NuxtLink
+        to="/blog?categoria=Moda"
+        class="flex items-center justify-center text-center rounded-full shadow-sm flex-shrink-0 cursor-pointer transition-transform hover:scale-110 active:scale-95"
         style="width: min(16vw, 64px); height: min(16vw, 64px); background-color: rgba(255,255,255,0.18);"
       >
         <span class="font-semibold text-white leading-tight" style="font-size: clamp(0.45rem, 2.2vw, 0.6rem); padding: 4px;">Moda</span>
-      </div>
+      </NuxtLink>
       <!-- Arte -->
-      <div
-        class="flex items-center justify-center text-center rounded-full shadow-sm flex-shrink-0"
+      <NuxtLink
+        to="/blog?categoria=Arte"
+        class="flex items-center justify-center text-center rounded-full shadow-sm flex-shrink-0 cursor-pointer transition-transform hover:scale-110 active:scale-95"
         style="width: min(16vw, 64px); height: min(16vw, 64px); background-color: rgba(255,255,255,0.28);"
       >
         <span class="font-semibold text-white leading-tight" style="font-size: clamp(0.45rem, 2.2vw, 0.6rem); padding: 4px;">Arte</span>
-      </div>
+      </NuxtLink>
     </div>
 
     <!-- Línea naranja inferior -->
