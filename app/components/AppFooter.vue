@@ -8,6 +8,7 @@ const navigation = {
   ],
   empresa: [
     { label: 'Nosotros', to: '/nosotros' },
+    { label: 'Agencia', to: '/agencia' },
     { label: 'Blog y Novedades', to: '/blog' },
     { label: 'Contacto', to: '/contacto' },
     { label: 'Preguntas Frecuentes', to: '/faq' }

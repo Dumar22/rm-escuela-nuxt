@@ -34,7 +34,7 @@ useSeoMeta({
           Formación Profesional
         </span>
         <h1 class="text-4xl font-display font-bold tracking-tight sm:text-5xl mb-4">
-          Nuestros Cursos
+          Cursos
         </h1>
         <p class="text-lg text-gray-300 max-w-xl mx-auto">
           Elige el programa que transformará tu carrera creativa

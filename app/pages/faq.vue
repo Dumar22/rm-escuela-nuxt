@@ -37,17 +37,30 @@ const faqItems = [
 </script>
 
 <template>
-  <div class="bg-gray-50/50 min-h-screen py-16 sm:py-24">
-    <div class="mx-auto max-w-3xl px-6 lg:px-8">
-      
-      <div class="text-center mb-12">
-        <h1 class="text-4xl font-display font-black uppercase tracking-tight text-gray-950 mb-4">
+  <div>
+    <!-- Hero banner faq -->
+    <section class="relative bg-gray-950 text-white overflow-hidden">
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-orange-600/30 via-gray-950/80 to-gray-950"
+        style="pointer-events:none;"
+      />
+      <div class="relative mx-auto max-w-7xl px-6 lg:px-8 py-20 text-center">
+        <span
+          class="inline-block px-4 py-1 rounded-full bg-orange-500/20 text-orange-400 text-sm font-semibold uppercase tracking-widest mb-5"
+        >
+          Ayuda
+        </span>
+        <h1 class="text-4xl font-display font-bold tracking-tight sm:text-5xl mb-4">
           Preguntas Frecuentes
         </h1>
-        <p class="text-gray-600 text-lg">
+        <p class="text-lg text-gray-300 max-w-xl mx-auto">
           Resolvemos tus dudas principales para que des el paso seguro hacia tu formación profesional.
         </p>
       </div>
+    </section>
+
+    <div class="bg-gray-50/50 py-16 sm:py-24">
+      <div class="mx-auto max-w-3xl px-6 lg:px-8">
 
       <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8">
         <UAccordion 
@@ -59,13 +72,14 @@ const faqItems = [
         />
       </div>
 
-      <div class="mt-12 text-center">
-        <p class="text-gray-600 mb-4">¿Tienes una pregunta diferente?</p>
-        <UButton to="/contacto" color="primary" size="lg" class="font-bold">
-          Habla con un asesor
-        </UButton>
-      </div>
+        <div class="mt-12 text-center">
+          <p class="text-gray-600 mb-4">¿Tienes una pregunta diferente?</p>
+          <UButton to="/contacto" color="primary" size="lg" class="font-bold">
+            Habla con un asesor
+          </UButton>
+        </div>
 
+      </div>
     </div>
   </div>
 </template>

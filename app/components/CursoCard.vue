@@ -19,11 +19,11 @@ defineProps<{
         :src="curso.image"
         :alt="curso.title"
         width="600"
-        height="800"
+        :modifiers="{ fit: 'inside' }"
         format="webp"
         quality="80"
         loading="lazy"
-        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 object-top"
+        class="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105 object-center"
       />
 
       <!-- Overlay sutil en hover -->

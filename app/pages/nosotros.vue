@@ -45,6 +45,27 @@ useHead({
 <template>
   <div>
 
+    <!-- Hero banner nosotros -->
+    <section class="relative bg-gray-950 text-white overflow-hidden">
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-orange-600/30 via-gray-950/80 to-gray-950"
+        style="pointer-events:none;"
+      />
+      <div class="relative mx-auto max-w-7xl px-6 lg:px-8 py-20 text-center">
+        <span
+          class="inline-block px-4 py-1 rounded-full bg-orange-500/20 text-orange-400 text-sm font-semibold uppercase tracking-widest mb-5"
+        >
+          Quiénes Somos
+        </span>
+        <h1 class="text-4xl font-display font-bold tracking-tight sm:text-5xl mb-4">
+          Nosotros
+        </h1>
+        <p class="text-lg text-gray-300 max-w-xl mx-auto">
+          Conoce la historia, el enfoque y el equipo que impulsa RM Escuela Creativa.
+        </p>
+      </div>
+    </section>
+
     <!-- ── QUIÉNES SOMOS: imagen + texto ── -->
     <section class="py-16 sm:py-24 bg-white">
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
@@ -57,11 +78,11 @@ useHead({
               ¡SOMOS!
             </span>
 
-            <h1 class="text-3xl sm:text-4xl font-display font-black uppercase leading-tight tracking-tight text-gray-950 mb-1">
+            <h2 class="text-3xl sm:text-4xl font-display font-black uppercase leading-tight tracking-tight text-gray-950 mb-1">
               RM Modelos<br>
               <span class="text-orange-600">Escuela Creativa</span><br>
               de Artes y Moda
-            </h1>
+            </h2>
 
             <div class="space-y-5 text-base sm:text-lg text-gray-700 leading-relaxed mt-4">
               <p>

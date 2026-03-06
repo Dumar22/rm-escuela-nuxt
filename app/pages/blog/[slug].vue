@@ -20,7 +20,7 @@ const formattedContent = computed(() => {
   html = html.split('\n\n').map(p => {
     const trimmed = p.trim()
     if (!trimmed || trimmed.startsWith('<h3')) return trimmed
-    return `<p class="mb-4 text-gray-700 leading-relaxed text-lg">${trimmed}</p>`
+    return `<p class="mb-4 text-gray-700 leading-relaxed text-base sm:text-lg">${trimmed}</p>`
   }).join('')
 
   return html
@@ -54,7 +54,7 @@ useSeoMeta({
           <span class="text-gray-500">{{ post.readTime }}</span>
         </div>
 
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-display font-black uppercase leading-tight tracking-tight text-gray-950 mb-8">
+        <h1 class="text-3xl sm:text-4xl font-display font-black uppercase leading-tight tracking-tight text-gray-950 mb-8">
           {{ post.title }}
         </h1>
 
@@ -71,14 +71,14 @@ useSeoMeta({
 
       <!-- Featured Image -->
       <div class="mx-auto max-w-5xl px-6 lg:px-8 mb-12">
-        <div class="w-full rounded-2xl overflow-hidden shadow-sm bg-gray-100 aspect-video lg:aspect-[21/9]">
+        <div class="w-full md:w-1/2 mx-auto rounded-2xl overflow-hidden shadow-sm bg-gray-100">
           <NuxtImg
             :src="post.imageUrl"
             :alt="post.title"
             width="1200"
-            height="600"
+            :modifiers="{ fit: 'inside' }"
             format="webp"
-            class="w-full h-full object-cover"
+            class="w-full h-auto object-contain"
           />
         </div>
       </div>
@@ -86,7 +86,7 @@ useSeoMeta({
       <!-- Article Content -->
       <article class="mx-auto max-w-3xl px-6 lg:px-8">
         <!-- Excerpt as intro -->
-        <p class="text-xl sm:text-2xl text-gray-600 font-light leading-relaxed mb-10 pb-8 border-b border-gray-100">
+        <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-10 pb-8 border-b border-gray-100">
           {{ post.excerpt }}
         </p>
 

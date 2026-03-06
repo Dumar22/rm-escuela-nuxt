@@ -58,17 +58,18 @@ useSeoMeta({
 <template>
   <div>
     <!-- Hero -->
-    <section class="relative bg-black text-white overflow-hidden">
-      <div class="absolute inset-0 bg-gradient-to-br from-orange-500/20 via-black to-slate-950" />
-      <div class="relative mx-auto max-w-7xl px-6 lg:px-8 py-20">
-        <div class="mx-auto max-w-2xl text-center">
-          <h1 class="text-4xl font-display font-bold tracking-tight sm:text-5xl mb-6">
-            Contáctanos
-          </h1>
-          <p class="text-xl text-gray-200">
-            Estamos aquí para ayudarte a comenzar tu viaje creativo
-          </p>
-        </div>
+    <section class="relative bg-gray-950 text-white overflow-hidden">
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-orange-600/30 via-gray-950/80 to-gray-950"
+        style="pointer-events:none;"
+      />
+      <div class="relative mx-auto max-w-7xl px-6 lg:px-8 py-20 text-center">
+        <h1 class="text-4xl font-display font-bold tracking-tight sm:text-5xl mb-4">
+          Contáctanos
+        </h1>
+        <p class="text-lg text-gray-300 max-w-xl mx-auto">
+          Estamos aquí para ayudarte a comenzar tu viaje creativo
+        </p>
       </div>
     </section>
 

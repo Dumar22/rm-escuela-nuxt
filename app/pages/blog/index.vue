@@ -9,17 +9,26 @@ useSeoMeta({
 
 <template>
   <div class="min-h-screen bg-gray-50/50 pb-24">
-    <!-- Header -->
-    <div class="bg-white border-b border-gray-100 py-16 sm:py-24">
-      <div class="mx-auto max-w-7xl px-6 lg:px-8 text-center">
-        <h1 class="text-4xl sm:text-5xl font-display font-black uppercase leading-tight tracking-tight text-gray-950 mb-4">
+    <!-- Hero banner blog -->
+    <section class="relative bg-gray-950 text-white overflow-hidden">
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-orange-600/30 via-gray-950/80 to-gray-950"
+        style="pointer-events:none;"
+      />
+      <div class="relative mx-auto max-w-7xl px-6 lg:px-8 py-20 text-center">
+        <span
+          class="inline-block px-4 py-1 rounded-full bg-orange-500/20 text-orange-400 text-sm font-semibold uppercase tracking-widest mb-5"
+        >
+          Blog y Novedades
+        </span>
+        <h1 class="text-4xl font-display font-bold tracking-tight sm:text-5xl mb-4">
           Nuestro Blog
         </h1>
-        <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+        <p class="text-lg text-gray-300 max-w-xl mx-auto">
           Noticias, tendencias y recursos educativos preparados por los expertos de RM Escuela Creativa para potenciar tu talento.
         </p>
       </div>
-    </div>
+    </section>
 
     <!-- Grid de Artículos -->
     <div class="mx-auto max-w-7xl px-6 lg:px-8 mt-12 sm:mt-16">
@@ -30,14 +39,14 @@ useSeoMeta({
           class="flex flex-col bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow duration-300"
         >
           <!-- Imagen -->
-          <NuxtLink :to="`/blog/${post.slug}`" class="block aspect-[4/3] overflow-hidden bg-gray-100 relative group">
+          <NuxtLink :to="`/blog/${post.slug}`" class="block aspect-[3/4] overflow-hidden bg-gray-100 relative group">
             <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors z-10"></div>
             <NuxtImg
               :src="post.imageUrl"
               :alt="post.title"
               width="600"
-              height="450"
-              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              :modifiers="{ fit: 'inside' }"
+              class="w-full h-full object-contain transition-transform duration-500"
               format="webp"
             />
           </NuxtLink>
