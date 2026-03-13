@@ -4,10 +4,11 @@ const isAudioEnabled = ref(true)
 const isAudioPlaying = ref(false)
 const cookieConsent = useCookie<string | null>('has_consent_cookies')
 
-const SESSION_AUDIO_KEY = 'rm-bg-audio-played'
 const AUDIO_PREF_KEY = 'rm-bg-audio-enabled'
 const MAX_AUDIO_MS = 40_000
 
+// Flag en memoria: se resetea con cada carga de página (no sessionStorage)
+let hasPlayedThisLoad = false
 let stopTimer: ReturnType<typeof setTimeout> | null = null
 
 const stopAudio = () => {
@@ -20,34 +21,44 @@ const stopAudio = () => {
 
 const scheduleStop = () => {
   if (stopTimer) clearTimeout(stopTimer)
-  stopTimer = setTimeout(() => {
-    stopAudio()
-  }, MAX_AUDIO_MS)
+  stopTimer = setTimeout(stopAudio, MAX_AUDIO_MS)
 }
 
-const tryStartAudio = async (force = false) => {
-  if (!import.meta.client) return
+// Muestra el hint de toque en móvil hasta que el audio arranque
+const showMobileHint = ref(false)
+
+// Llamar play() de forma síncrona en el handler — requisito de iOS Safari
+const startAudioSync = () => {
   if (!isAudioEnabled.value) return
-  if (!force && sessionStorage.getItem(SESSION_AUDIO_KEY) === '1') return
+  if (hasPlayedThisLoad) return
+  if (isAudioPlaying.value) return
 
   const audio = audioRef.value
   if (!audio) return
 
-  try {
-    audio.volume = 0.35
-    audio.currentTime = 0
-    await audio.play()
-    isAudioPlaying.value = true
-    sessionStorage.setItem(SESSION_AUDIO_KEY, '1')
-    scheduleStop()
-    removeInteractionListeners()
-  } catch {
-    // Si el navegador bloquea autoplay, se intentará en la primera interacción.
+  audio.volume = 0.35
+  audio.currentTime = 0
+
+  const promise = audio.play()
+  if (promise !== undefined) {
+    promise.then(() => {
+      hasPlayedThisLoad = true
+      isAudioPlaying.value = true
+      showMobileHint.value = false
+      scheduleStop()
+      removeInteractionListeners()
+    }).catch(() => {
+      // Aún bloqueado — el hint seguirá visible
+    })
   }
 }
 
+const tryStartAudio = async () => {
+  startAudioSync()
+}
+
 const firstInteractionHandler = () => {
-  void tryStartAudio()
+  startAudioSync()
 }
 
 const setAudioPreference = (enabled: boolean) => {
@@ -56,31 +67,34 @@ const setAudioPreference = (enabled: boolean) => {
   localStorage.setItem(AUDIO_PREF_KEY, enabled ? '1' : '0')
 }
 
-const toggleAudio = async () => {
+const toggleAudio = () => {
   if (isAudioEnabled.value) {
     setAudioPreference(false)
     stopAudio()
+    showMobileHint.value = false
     return
   }
-
   setAudioPreference(true)
-  await tryStartAudio(true)
+  hasPlayedThisLoad = false
+  startAudioSync()
 }
 
 const addInteractionListeners = () => {
   if (!import.meta.client) return
-  window.addEventListener('click', firstInteractionHandler)
-  window.addEventListener('touchstart', firstInteractionHandler)
-  window.addEventListener('keydown', firstInteractionHandler)
-  window.addEventListener('scroll', firstInteractionHandler, { passive: true })
+  window.addEventListener('scroll',     firstInteractionHandler, { passive: true })
+  window.addEventListener('click',      firstInteractionHandler)
+  window.addEventListener('touchstart', firstInteractionHandler, { passive: true })
+  window.addEventListener('keydown',    firstInteractionHandler)
+  window.addEventListener('mousemove',  firstInteractionHandler, { passive: true, once: true })
 }
 
 const removeInteractionListeners = () => {
   if (!import.meta.client) return
-  window.removeEventListener('click', firstInteractionHandler)
+  window.removeEventListener('scroll',     firstInteractionHandler)
+  window.removeEventListener('click',      firstInteractionHandler)
   window.removeEventListener('touchstart', firstInteractionHandler)
-  window.removeEventListener('keydown', firstInteractionHandler)
-  window.removeEventListener('scroll', firstInteractionHandler)
+  window.removeEventListener('keydown',    firstInteractionHandler)
+  window.removeEventListener('mousemove',  firstInteractionHandler)
 }
 
 onMounted(() => {
@@ -91,28 +105,27 @@ onMounted(() => {
 
   const audio = audioRef.value
   if (audio) {
-    audio.addEventListener('play', () => {
-      isAudioPlaying.value = true
-    })
-    audio.addEventListener('pause', () => {
-      isAudioPlaying.value = false
-    })
-    audio.addEventListener('ended', () => {
-      isAudioPlaying.value = false
-    })
+    audio.addEventListener('play',  () => { isAudioPlaying.value = true })
+    audio.addEventListener('pause', () => { isAudioPlaying.value = false })
+    audio.addEventListener('ended', () => { isAudioPlaying.value = false })
   }
 
-  if (cookieConsent.value === 'accepted') {
-    void tryStartAudio()
+  // Intento inmediato (funciona en desktop con historial de interacción)
+  startAudioSync()
+
+  // En móvil o si el intento falló, mostrar hint y escuchar primer gesto
+  if (!hasPlayedThisLoad) {
+    showMobileHint.value = true
+    addInteractionListeners()
   }
-  addInteractionListeners()
 })
 
 watch(
   () => cookieConsent.value,
   (value) => {
     if (value === 'accepted') {
-      void tryStartAudio(true)
+      hasPlayedThisLoad = false
+      startAudioSync()
     }
   }
 )
@@ -133,15 +146,28 @@ onBeforeUnmount(() => {
       <AppFooter />
       <CookieBanner />
 
-      <!-- Botón Flotante de WhatsApp -->
+      <!-- Prompt móvil: toca para activar sonido -->
+      <Transition name="fade">
+        <button
+          v-if="showMobileHint && isAudioEnabled && !isAudioPlaying"
+          type="button"
+          class="fixed top-20 left-1/2 -translate-x-1/2 z-[110] inline-flex items-center gap-2 rounded-full bg-black/70 px-4 py-2.5 text-sm font-semibold text-white backdrop-blur-md shadow-lg sm:hidden"
+          @click="toggleAudio"
+        >
+          <UIcon name="i-lucide-volume-2" class="h-4 w-4 text-orange-400" />
+          Toca para activar el sonido
+        </button>
+      </Transition>
+
+      <!-- Botón flotante de audio -->
       <button
         type="button"
         class="fixed bottom-6 left-6 z-[100] inline-flex items-center gap-2 rounded-full border border-white/25 bg-black/35 px-3.5 py-2 text-xs font-medium text-white backdrop-blur-md transition-all duration-300 hover:bg-black/50"
         :aria-label="isAudioEnabled ? 'Silenciar audio ambiental' : 'Activar audio ambiental'"
         @click="toggleAudio"
       >
-        <UIcon :name="isAudioEnabled ? 'i-lucide-volume-2' : 'i-lucide-volume-x'" class="h-4 w-4" />
-        <span>{{ isAudioEnabled ? (isAudioPlaying ? 'Sonido on' : 'Sonido listo') : 'Sonido off' }}</span>
+        <UIcon :name="isAudioEnabled ? (isAudioPlaying ? 'i-lucide-volume-2' : 'i-lucide-volume-1') : 'i-lucide-volume-x'" class="h-4 w-4" />
+        <span>{{ isAudioEnabled ? (isAudioPlaying ? 'Sonido on' : 'Toca para sonido') : 'Sonido off' }}</span>
       </button>
 
       <a
@@ -165,3 +191,10 @@ onBeforeUnmount(() => {
     </div>
   </UApp>
 </template>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active { transition: opacity 0.4s ease, transform 0.4s ease; }
+.fade-enter-from,
+.fade-leave-to    { opacity: 0; transform: translateX(-50%) translateY(-6px); }
+</style>
