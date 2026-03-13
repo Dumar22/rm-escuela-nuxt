@@ -34,7 +34,7 @@ function rejectCookies() {
         
         <div class="flex flex-col sm:flex-row gap-2">
           <UButton 
-            color="gray" 
+            color="neutral" 
             variant="soft" 
             @click="rejectCookies" 
             class="justify-center sm:flex-1"

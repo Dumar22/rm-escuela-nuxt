@@ -1,67 +1,25 @@
 <script setup lang="ts">
-const servicios = [
+const serviciosImagenes = [
   {
     id: 1,
-    icon: 'i-lucide-users',
-    title: 'Personal para Logística',
-    description: 'Staff capacitado y profesional para la ejecución de eventos corporativos, ferias y convenciones.',
-    features: ['Coordinadores de evento', 'Auxiliares de montaje', 'Personal de apoyo']
+    imagen: '/agencia/contratacion-modelos.jpg',
+    alt: 'Contratación de Modelos – Agencia RM',
+    titulo: 'Contratación de Modelos',
+    descripcion: 'Banco de talento verificado para producciones, campañas publicitarias y eventos de cualquier escala.'
   },
   {
     id: 2,
-    icon: 'i-lucide-sparkles',
-    title: 'Modelos para Protocolo',
-    description: 'Talento especializado en atención protocolaria, imagen de marca y representación corporativa.',
-    features: ['Edecanes y azafatas', 'Imagen de marca', 'Protocolo empresarial']
+    imagen: '/agencia/casting-modelos.jpg',
+    alt: 'Casting de Modelos – Agencia RM',
+    titulo: 'Casting Profesional',
+    descripcion: 'Proceso de selección de talento con criterios profesionales para proyectos editoriales, desfiles y producciones audiovisuales.'
   },
   {
     id: 3,
-    icon: 'i-lucide-briefcase',
-    title: 'Contratación de Talento',
-    description: 'Banco de talento verificado para producciones, campañas y eventos de cualquier escala.',
-    features: ['Modelos profesionales', 'Actores y performers', 'Casting personalizado']
-  },
-  {
-    id: 4,
-    icon: 'i-lucide-shirt',
-    title: 'Desfiles de Moda',
-    description: 'Producción integral de pasarelas, desde el casting hasta la dirección de escena.',
-    features: ['Casting de modelos', 'Coreografía y dirección', 'Coordinación general']
-  },
-  {
-    id: 5,
-    icon: 'i-lucide-megaphone',
-    title: 'Activación de Marca',
-    description: 'Estrategias BTL con personal capacitado para generar engagement con tu público objetivo.',
-    features: ['Sampleo y degustación', 'Experiencias de marca', 'Embajadores de marca']
-  },
-  {
-    id: 6,
-    icon: 'i-lucide-camera',
-    title: 'Fotografía de Moda y Profesional',
-    description: 'Sesiones fotográficas para lookbooks, e-commerce, catálogos y campañas publicitarias.',
-    features: ['Fotografía editorial', 'Fotografía de producto', 'Campañas publicitarias']
-  },
-  {
-    id: 7,
-    icon: 'i-lucide-clapperboard',
-    title: 'Productor de Eventos y Moda',
-    description: 'Gestión completa de producción para lanzamientos, desfiles y eventos corporativos.',
-    features: ['Dirección de producción', 'Coordinación de equipo', 'Logística integral']
-  },
-  {
-    id: 8,
-    icon: 'i-lucide-disc-3',
-    title: 'DJs',
-    description: 'Selección musical profesional para crear la atmósfera perfecta en tu evento.',
-    features: ['DJs residentes', 'Ambientación musical', 'Equipos de sonido']
-  },
-  {
-    id: 9,
-    icon: 'i-lucide-palette',
-    title: 'Decoración',
-    description: 'Diseño y montaje de espacios que reflejan la identidad visual de tu marca o evento.',
-    features: ['Diseño de espacios', 'Montaje y producción', 'Mobiliario y ambientación']
+    imagen: '/agencia/escuela-modelos.jpg',
+    alt: 'Escuela de Modelos – RM',
+    titulo: 'Escuela de Modelos',
+    descripcion: 'Formación integral para modelos desde cero: pasarela, fotografía, expresión corporal y preparación para la industria.'
   }
 ]
 
@@ -121,9 +79,9 @@ useSeoMeta({
     </section>
 
     <!-- Servicios -->
-    <section class="py-16 sm:py-24 bg-gray-50">
-      <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <div class="text-center mb-12">
+    <section class="py-12 sm:py-20 bg-gray-50">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10 sm:mb-14">
           <h2 class="text-3xl sm:text-4xl font-display font-bold text-gray-900 mb-4">
             Nuestros Servicios
           </h2>
@@ -132,35 +90,45 @@ useSeoMeta({
           </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Grid de imágenes responsivo -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           <article
-            v-for="servicio in servicios"
-            :key="servicio.id"
-            class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-lg transition-shadow duration-300"
+            v-for="s in serviciosImagenes"
+            :key="s.id"
+            class="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow duration-300"
           >
-            <div class="flex items-center gap-3 mb-4">
-              <div class="w-12 h-12 rounded-xl bg-orange-100 flex items-center justify-center flex-shrink-0">
-                <UIcon :name="servicio.icon" class="w-6 h-6 text-orange-600" />
-              </div>
-              <h3 class="text-xl font-bold text-gray-900 leading-tight">
-                {{ servicio.title }}
-              </h3>
+            <!-- Imagen -->
+            <div class="overflow-hidden" style="aspect-ratio: 4/3;">
+              <NuxtImg
+                :src="s.imagen"
+                :alt="s.alt"
+                width="600"
+                height="450"
+                format="webp"
+                quality="85"
+                loading="lazy"
+                class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+              />
             </div>
 
-            <p class="text-gray-600 mb-4 leading-relaxed">
-              {{ servicio.description }}
-            </p>
-
-            <ul class="space-y-2">
-              <li
-                v-for="feature in servicio.features"
-                :key="feature"
-                class="flex items-start gap-2 text-sm text-gray-700"
+            <!-- Texto fuera de la imagen -->
+            <div class="p-5 sm:p-6">
+              <h3 class="text-xl font-display font-bold text-gray-900 mb-2 leading-tight">
+                {{ s.titulo }}
+              </h3>
+              <p class="text-sm text-gray-600 leading-relaxed mb-4">
+                {{ s.descripcion }}
+              </p>
+              <UButton
+                to="/contacto"
+                color="primary"
+                variant="solid"
+                size="sm"
+                class="font-semibold"
               >
-                <UIcon name="i-lucide-check" class="w-4 h-4 text-orange-500 flex-shrink-0 mt-0.5" />
-                <span>{{ feature }}</span>
-              </li>
-            </ul>
+                Solicitar info
+              </UButton>
+            </div>
           </article>
         </div>
       </div>
@@ -223,7 +191,7 @@ useSeoMeta({
           <UFormField label="Servicio de Interés" name="servicio" required>
             <USelect
               v-model="formulario.servicio"
-              :items="servicios.map(s => ({ label: s.title, value: s.title }))"
+              :items="serviciosImagenes.map(s => ({ label: s.titulo, value: s.titulo }))"
               placeholder="Selecciona un servicio"
               size="lg"
               required

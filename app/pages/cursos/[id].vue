@@ -1,6 +1,8 @@
 <script setup lang="ts">
 const route = useRoute()
 const { getCurso } = useCursos()
+const supabase = useSupabase()
+const { getUser } = useAuth()
 
 const curso = computed(() => getCurso(route.params.id as string))
 
@@ -12,6 +14,67 @@ const parrafos = computed(() =>
 const subtitleTag   = computed(() => curso.value?.subtitle.split('·').slice(1).join('·').trim() ?? '')
 
 const isPensumOpen = ref(false)
+const isCheckoutOpen = ref(false)
+const checkoutLoading = ref(false)
+const selectedPurchaseMode = ref<'virtual' | 'presencial'>('virtual')
+
+const parseCourseAmount = (price: string) => {
+  const cleaned = (price || '').replace(/\./g, '').replace(/,/g, '.').trim()
+  const amount = Number(cleaned)
+  return Number.isFinite(amount) ? amount : 0
+}
+
+const openCheckout = async () => {
+  const user = await getUser()
+  if (!user) {
+    await navigateTo('/acceso')
+    return
+  }
+  isCheckoutOpen.value = true
+}
+
+const createOrder = async () => {
+  if (!curso.value) return
+
+  checkoutLoading.value = true
+  try {
+    const user = await getUser()
+    if (!user) {
+      await navigateTo('/acceso')
+      return
+    }
+
+    const amount = parseCourseAmount(curso.value.price)
+    const userMetadata = user.user_metadata || {}
+
+    const { error } = await supabase
+      .from('course_orders')
+      .insert([{
+        user_id: user.id,
+        course_id: curso.value.id,
+        amount,
+        currency: curso.value.currency || 'COP',
+        payment_method: 'pendiente',
+        payment_status: 'pending',
+        purchase_mode: selectedPurchaseMode.value,
+        payer_name: userMetadata.full_name || user.email || '',
+        payer_email: user.email,
+        payer_phone: userMetadata.phone || null
+      }])
+
+    if (error) throw error
+
+    isCheckoutOpen.value = false
+    await navigateTo('/aula')
+  }
+  catch (error) {
+    console.error('Error creating order:', error)
+    alert('No se pudo crear la orden. Asegúrate de estar registrado.')
+  }
+  finally {
+    checkoutLoading.value = false
+  }
+}
 
 useSeoMeta({
   title: () => curso.value ? `${curso.value.title} – RM Escuela Creativa` : 'Curso no encontrado',
@@ -102,8 +165,8 @@ useSeoMeta({
 
               <!-- CTAs -->
               <div class="flex flex-col gap-2 mt-6 w-full">
-                <UButton to="/contacto" color="primary" size="md" class="font-bold justify-center w-full">
-                  Inscribirme ahora
+                <UButton disabled color="primary" size="md" class="font-bold justify-center w-full opacity-50 cursor-not-allowed" title="Función disponible próximamente">
+                  Comprar curso
                 </UButton>
                 <UButton to="/contacto" variant="outline" color="neutral" size="md" class="justify-center w-full">
                   Hablar con un asesor
@@ -217,7 +280,7 @@ useSeoMeta({
             </div>
 
             <div class="flex flex-col gap-3 mt-6">
-              <UButton to="/contacto" color="primary" size="lg" class="font-bold justify-center">Inscribirme ahora</UButton>
+              <UButton disabled color="primary" size="lg" class="font-bold justify-center opacity-50 cursor-not-allowed" title="Función disponible próximamente">Comprar curso</UButton>
               <UButton to="/contacto" variant="outline" color="neutral" size="lg" class="justify-center">Hablar con un asesor</UButton>
               <UButton
                 @click="isPensumOpen = true"
@@ -311,7 +374,7 @@ useSeoMeta({
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-3 mt-8">
-                  <UButton to="/contacto" color="primary" size="lg" class="font-bold justify-center">Inscribirme ahora</UButton>
+                  <UButton disabled color="primary" size="lg" class="font-bold justify-center opacity-50 cursor-not-allowed" title="Función disponible próximamente">Comprar curso</UButton>
                   <UButton to="/contacto" variant="outline" color="neutral" size="lg" class="justify-center">Hablar con un asesor</UButton>
                 </div>
                 <div class="mt-3">
@@ -409,6 +472,88 @@ useSeoMeta({
         </div>
       </div>
     </Teleport>
+
+    <UModal v-model="isCheckoutOpen">
+      <div class="p-8">
+        <!-- Header -->
+        <div class="mb-8">
+          <h2 class="text-2xl font-display font-bold text-gray-900 mb-2">
+            {{ curso?.title }}
+          </h2>
+          <p class="text-gray-600 text-sm">
+            Selecciona la modalidad que prefieres para este curso
+          </p>
+        </div>
+
+        <!-- Modalidad Selector -->
+        <div class="space-y-3 mb-8">
+          <label class="block">
+            <input
+              type="radio"
+              v-model="selectedPurchaseMode"
+              value="virtual"
+              class="mr-3 w-4 h-4 cursor-pointer accent-orange-500"
+            />
+            <span class="cursor-pointer font-medium text-gray-900">
+              🌐 Modal Virtual
+            </span>
+            <p class="text-xs text-gray-500 ml-7 mt-1">
+              Acceso completo a clases en línea y material digital
+            </p>
+          </label>
+
+          <label class="block">
+            <input
+              type="radio"
+              v-model="selectedPurchaseMode"
+              value="presencial"
+              class="mr-3 w-4 h-4 cursor-pointer accent-orange-500"
+            />
+            <span class="cursor-pointer font-medium text-gray-900">
+              🏢 Modalidad Presencial
+            </span>
+            <p class="text-xs text-gray-500 ml-7 mt-1">
+              Clases en nuestras instalaciones con atención personalizada
+            </p>
+          </label>
+        </div>
+
+        <!-- Precio -->
+        <div class="rounded-xl border border-orange-200 bg-orange-50 p-4 mb-8">
+          <p class="text-sm text-gray-600 mb-1">Valor del curso</p>
+          <p class="text-2xl font-bold text-gray-900">
+            {{ curso?.currency }} {{ curso?.price }}
+          </p>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex gap-3">
+          <UButton
+            color="neutral"
+            variant="ghost"
+            block
+            @click="isCheckoutOpen = false"
+          >
+            Cancelar
+          </UButton>
+          <UButton
+            color="primary"
+            block
+            :loading="checkoutLoading"
+            @click="createOrder"
+            class="font-bold"
+          >
+            Generar orden
+          </UButton>
+        </div>
+
+        <!-- Info -->
+        <p class="text-xs text-gray-500 text-center mt-6">
+          Al generar la orden, será procesada por nuestro equipo de administración.
+          Recibirás instrucciones de pago a tu correo.
+        </p>
+      </div>
+    </UModal>
 
   </div>
 </template>

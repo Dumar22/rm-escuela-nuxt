@@ -270,16 +270,60 @@ const cursos: Curso[] = [
     currency: 'COP',
     featured: false,
     order: 13
+  },
+  {
+    id: '14',
+    slug: 'maquillaje-profesional',
+    title: 'Maquillaje Profesional',
+    subtitle: 'MAQUILLAJE PROFESIONAL · TÉCNICAS ACTUALES Y BEAUTY LOOKS',
+    shortDesc: 'Formación práctica en técnicas de maquillaje social, editorial y de tendencias.',
+    description: 'Curso enfocado en fundamentos y técnicas profesionales de maquillaje para diferentes contextos: social, editorial y contenido digital. Incluye preparación de piel, visagismo, colorimetría, correcciones, iluminación del rostro y acabados de larga duración.\n\nEl programa combina teoría y práctica para desarrollar habilidades aplicables en sesiones fotográficas, eventos y entornos comerciales, fortaleciendo criterio estético y ejecución técnica.',
+    category: 'Belleza',
+    categoryColor: '#db2777',
+    duration: '24 horas',
+    modality: 'Virtual y Presencial',
+    level: 'Básico – Avanzado',
+    image: '/cursos/maquillaje.jpg',
+    detailImages: [],
+    price: '340.000',
+    currency: 'COP',
+    featured: false,
+    order: 14
+  },
+  {
+    id: '15',
+    slug: 'podcasts-creacion-y-produccion',
+    title: 'Podcasts: Creación y Producción',
+    subtitle: 'PODCASTS · GUION, VOZ, GRABACIÓN Y PUBLICACIÓN',
+    shortDesc: 'Aprende a crear un podcast desde la idea hasta su publicación en plataformas.',
+    description: 'Curso práctico para diseñar, producir y lanzar un podcast con identidad propia. Se trabaja conceptualización, estructura de episodios, guion, locución, grabación, edición de audio y distribución.\n\nIncluye herramientas para mejorar narrativa, calidad sonora y estrategia de contenido, orientado a marcas personales, emprendimientos y creadores digitales.',
+    category: 'Comunicación',
+    categoryColor: '#2563eb',
+    duration: '20 horas',
+    modality: 'Virtual y Presencial',
+    level: 'Básico – Medio',
+    image: '/cursos/podcasts.jpg',
+    detailImages: [],
+    price: '320.000',
+    currency: 'COP',
+    featured: false,
+    order: 15
   }
 ]
 
 export function useCursos() {
-  const todos = computed(() => [...cursos].sort((a, b) => a.order - b.order))
-  const destacados = computed(() => cursos.filter(c => c.featured).sort((a, b) => a.order - b.order))
+  const cursosState = useState<Curso[]>('public-cursos', () => [...cursos])
 
-  function getCurso(slug: string) {
-    return cursos.find(c => c.slug === slug) ?? null
+  const loadCursosFromSupabase = async () => {
+    return cursosState.value
   }
 
-  return { todos, destacados, getCurso }
+  const todos = computed(() => [...cursosState.value].sort((a, b) => a.order - b.order))
+  const destacados = computed(() => cursosState.value.filter(c => c.featured).sort((a, b) => a.order - b.order))
+
+  function getCurso(slug: string) {
+    return cursosState.value.find(c => c.slug === slug) ?? null
+  }
+
+  return { todos, destacados, getCurso, loadCursosFromSupabase }
 }

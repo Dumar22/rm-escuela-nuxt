@@ -105,10 +105,15 @@ export const useBlog = () => {
     }
   ])
 
+  const loadPostsFromSupabase = async () => {
+    return posts.value
+  }
+
   const getPost = (slug: string) => posts.value.find(p => p.slug === slug)
 
   return {
     posts,
-    getPost
+    getPost,
+    loadPostsFromSupabase
   }
 }

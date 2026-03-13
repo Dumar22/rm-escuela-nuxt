@@ -2,10 +2,11 @@
 const navigation = [
   { label: 'Inicio', to: '/' },
   { label: 'Cursos', to: '/cursos' },
-  { label: 'Agencia', to: '/agencia' },
+  //{ label: 'Mi Aula', to: '/aula' },
   { label: 'Nosotros', to: '/nosotros' },
   { label: 'Blog', to: '/blog' },
-  { label: 'Contacto', to: '/contacto' }
+  { label: 'Contacto', to: '/contacto' },
+  { label: 'Agencia', to: '/agencia' },
 ]
 
 const mobileMenuOpen = ref(false)

@@ -36,6 +36,7 @@ useSeoMeta({
 
 useHead({
   link: [
+    { rel: 'preload', as: 'image', href: '/images/banners/banner-quienes-somos.jpg', fetchpriority: 'high' },
     { rel: 'preload', as: 'image', href: '/quienes-somos.jpg', fetchpriority: 'high' },
     { rel: 'preload', as: 'image', href: '/director.jpg', fetchpriority: 'high' }
   ]
@@ -46,23 +47,21 @@ useHead({
   <div>
 
     <!-- Hero banner nosotros -->
-    <section class="relative bg-gray-950 text-white overflow-hidden">
+    <section class="relative bg-gray-950 text-white overflow-hidden h-[220px] sm:h-[260px] lg:h-[300px]">
       <div
-        class="absolute inset-0 bg-gradient-to-br from-orange-600/30 via-gray-950/80 to-gray-950"
+        class="absolute inset-0 bg-center bg-cover"
+        style="background-image: url('/images/banners/banner-quienes-somos.jpg');"
+      />
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-gray-950/30 via-gray-950/50 to-gray-950/82"
         style="pointer-events:none;"
       />
-      <div class="relative mx-auto max-w-7xl px-6 lg:px-8 py-20 text-center">
-        <span
-          class="inline-block px-4 py-1 rounded-full bg-orange-500/20 text-orange-400 text-sm font-semibold uppercase tracking-widest mb-5"
-        >
-          Quiénes Somos
-        </span>
-        <h1 class="text-4xl font-display font-bold tracking-tight sm:text-5xl mb-4">
+      <div class="relative h-full mx-auto max-w-7xl px-4 lg:px-8 flex flex-col items-center justify-end pb-7 sm:pb-9 lg:pb-10 text-center">
+       
+        <h1 class="text-4xl sm:text-5xl font-display font-bold tracking-tight text-[#F4EFE8]" style="text-shadow: 0 4px 18px rgba(0, 0, 0, 0.7);">
           Nosotros
         </h1>
-        <p class="text-lg text-gray-300 max-w-xl mx-auto">
-          Conoce la historia, el enfoque y el equipo que impulsa RM Escuela Creativa.
-        </p>
+        
       </div>
     </section>
 
