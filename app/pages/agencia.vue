@@ -20,6 +20,13 @@ const serviciosImagenes = [
     alt: 'Escuela de Modelos – RM',
     titulo: 'Escuela de Modelos',
     descripcion: 'Formación integral para modelos desde cero: pasarela, fotografía, expresión corporal y preparación para la industria.'
+  },
+  {
+    id: 4,
+    imagen: '/agencia/rm-producciones.jpg',
+    alt: 'Agencia RM – Producción y talento',
+    titulo: 'Producción Agencia RM',
+    descripcion: 'Acompañamiento integral para marcas y productoras con dirección creativa, coordinación de talento y ejecución de alto nivel.'
   }
 ]
 
@@ -33,6 +40,13 @@ const formulario = reactive({
 })
 
 const isSubmitting = ref(false)
+
+const whatsappBase = 'https://wa.me/573016555918'
+
+const whatsappServicioLink = (servicio: string) => {
+  const mensaje = `Hola, quiero más información sobre el servicio: ${servicio}`
+  return `${whatsappBase}?text=${encodeURIComponent(mensaje)}`
+}
 
 const handleSubmit = async () => {
   isSubmitting.value = true
@@ -58,23 +72,19 @@ useSeoMeta({
 <template>
   <div>
     <!-- Hero -->
-    <section class="relative bg-gray-950 text-white overflow-hidden">
+    <section class="relative bg-gray-950 text-white overflow-hidden h-[220px] sm:h-[260px] lg:h-[300px]">
       <div
-        class="absolute inset-0 bg-gradient-to-br from-orange-600/30 via-gray-950/80 to-gray-950"
+        class="absolute inset-0 bg-center bg-cover"
+        style="background-image: url('/images/banners/banner-agencia.jpg');"
+      />
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-gray-950/30 via-gray-950/50 to-gray-950/82"
         style="pointer-events:none;"
       />
-      <div class="relative mx-auto max-w-7xl px-6 lg:px-8 py-20 text-center">
-        <span
-          class="inline-block px-4 py-1 rounded-full bg-orange-500/20 text-orange-400 text-sm font-semibold uppercase tracking-widest mb-5"
-        >
-          Servicios Profesionales
-        </span>
-        <h1 class="text-4xl font-display font-bold tracking-tight sm:text-5xl mb-4">
+      <div class="relative h-full mx-auto max-w-7xl px-6 lg:px-8 flex flex-col items-center justify-end pb-7 sm:pb-9 lg:pb-10 text-center">
+        <h1 class="text-4xl sm:text-5xl font-display font-bold tracking-tight text-[#F4EFE8]" style="text-shadow: 0 4px 18px rgba(0, 0, 0, 0.7);">
           Agencia RM
         </h1>
-        <p class="text-lg text-gray-300 max-w-xl mx-auto">
-          Talento profesional y servicios especializados para eventos, moda y producción audiovisual
-        </p>
       </div>
     </section>
 
@@ -91,7 +101,7 @@ useSeoMeta({
         </div>
 
         <!-- Grid de imágenes responsivo -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           <article
             v-for="s in serviciosImagenes"
             :key="s.id"
@@ -120,7 +130,9 @@ useSeoMeta({
                 {{ s.descripcion }}
               </p>
               <UButton
-                to="/contacto"
+                :to="whatsappServicioLink(s.titulo)"
+                target="_blank"
+                rel="noopener noreferrer"
                 color="primary"
                 variant="solid"
                 size="sm"
@@ -148,62 +160,68 @@ useSeoMeta({
 
         <form @submit.prevent="handleSubmit" class="bg-gray-50 rounded-2xl border border-gray-100 p-8 space-y-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <UFormField label="Nombre Completo" name="nombre" required>
+            <UFormField label="Nombre Completo" name="nombre" required class="w-full">
               <UInput
                 v-model="formulario.nombre"
                 placeholder="Tu nombre"
                 size="lg"
+                class="w-full"
                 required
               />
             </UFormField>
 
-            <UFormField label="Email" name="email" required>
+            <UFormField label="Email" name="email" required class="w-full">
               <UInput
                 v-model="formulario.email"
                 type="email"
                 placeholder="tu@email.com"
                 size="lg"
+                class="w-full"
                 required
               />
             </UFormField>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <UFormField label="Teléfono" name="telefono" required>
+            <UFormField label="Teléfono" name="telefono" required class="w-full">
               <UInput
                 v-model="formulario.telefono"
                 type="tel"
                 placeholder="+57 301 655 5918"
                 size="lg"
+                class="w-full"
                 required
               />
             </UFormField>
 
-            <UFormField label="Empresa" name="empresa">
+            <UFormField label="Empresa" name="empresa" class="w-full">
               <UInput
                 v-model="formulario.empresa"
                 placeholder="Nombre de tu empresa (opcional)"
                 size="lg"
+                class="w-full"
               />
             </UFormField>
           </div>
 
-          <UFormField label="Servicio de Interés" name="servicio" required>
+          <UFormField label="Servicio de Interés" name="servicio" required class="w-full">
             <USelect
               v-model="formulario.servicio"
               :items="serviciosImagenes.map(s => ({ label: s.titulo, value: s.titulo }))"
               placeholder="Selecciona un servicio"
               size="lg"
+              class="w-full"
               required
             />
           </UFormField>
 
-          <UFormField label="Cuéntanos sobre tu proyecto" name="mensaje" required>
+          <UFormField label="Cuéntanos sobre tu proyecto" name="mensaje" required class="w-full">
             <UTextarea
               v-model="formulario.mensaje"
               placeholder="Describe brevemente tu evento o proyecto, fecha aproximada, cantidad de personal requerido, etc."
               :rows="5"
               size="lg"
+              class="w-full"
               required
             />
           </UFormField>

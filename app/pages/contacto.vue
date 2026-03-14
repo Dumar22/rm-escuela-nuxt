@@ -109,47 +109,52 @@ useSeoMeta({
             </h2>
 
             <form class="space-y-6" @submit.prevent="handleSubmit">
-              <UFormField label="Nombre Completo" name="name" required>
+              <UFormField label="Nombre Completo" name="name" required class="w-full">
                 <UInput
                   v-model="form.name"
                   placeholder="Tu nombre"
                   size="lg"
+                  class="w-full"
                 />
               </UFormField>
 
-              <UFormField label="Email" name="email" required>
+              <UFormField label="Email" name="email" required class="w-full">
                 <UInput
                   v-model="form.email"
                   type="email"
                   placeholder="tu@email.com"
                   size="lg"
+                  class="w-full"
                 />
               </UFormField>
 
-              <UFormField label="Teléfono" name="phone">
+              <UFormField label="Teléfono" name="phone" class="w-full">
                 <UInput
                   v-model="form.phone"
                   type="tel"
                   placeholder="+57 301 655 5918"
                   size="lg"
+                  class="w-full"
                 />
               </UFormField>
 
-              <UFormField label="Curso de Interés" name="course">
+              <UFormField label="Curso de Interés" name="course" class="w-full">
                 <USelect
                   v-model="form.course"
                   :items="courseOptions"
                   placeholder="Selecciona un curso"
                   size="lg"
+                  class="w-full"
                 />
               </UFormField>
 
-              <UFormField label="Mensaje" name="message" required>
+              <UFormField label="Mensaje" name="message" required class="w-full">
                 <UTextarea
                   v-model="form.message"
                   placeholder="Cuéntanos en qué podemos ayudarte..."
                   :rows="4"
                   size="lg"
+                  class="w-full"
                 />
               </UFormField>
 

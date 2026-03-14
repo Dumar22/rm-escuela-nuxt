@@ -29,6 +29,131 @@ export const useBlog = () => {
       readTime: '3 min de lectura'
     },
     {
+      id: '5',
+      slug: 'arte-y-expresion-visual-en-rm',
+      title: 'Arte y Expresión Visual: Crear con Propósito',
+      excerpt: 'El arte no es solo técnica: también es criterio, mensaje y sensibilidad. En RM impulsamos procesos creativos que convierten ideas en propuestas visuales sólidas.',
+      content: `
+        En RM Escuela Creativa, entendemos el arte como una herramienta para comunicar, transformar y construir identidad. No se trata únicamente de hacer piezas "bonitas", sino de desarrollar una mirada propia y una narrativa visual con intención.
+
+        ### ¿Qué trabajamos en esta línea?
+        - Lectura visual y análisis de referencias contemporáneas.
+        - Composición, color y lenguaje gráfico aplicado a proyectos reales.
+        - Desarrollo de portafolio con enfoque profesional.
+
+        ### Del concepto a la pieza final
+        Cada proceso artístico parte de una pregunta: ¿qué quiero decir y cómo lo hago visible? En nuestros espacios de formación, guiamos a los estudiantes para traducir conceptos en piezas con coherencia estética y valor comunicativo.
+
+        El resultado es una práctica artística más consciente, actual y conectada con las industrias creativas.
+      `,
+      author: 'Equipo RM',
+      authorRole: 'Redacción',
+      date: '14 de Marzo, 2026',
+      category: 'Arte',
+      imageUrl: '/images/blog/arte-blog.jpg',
+      readTime: '4 min de lectura'
+    },
+    {
+      id: '6',
+      slug: 'creatividad-como-habito-profesional',
+      title: 'Creatividad como Hábito Profesional',
+      excerpt: 'Ser creativo no depende de la inspiración del momento. Se entrena con método, observación y práctica constante en contextos reales.',
+      content: `
+        Una de las ideas más limitantes en las industrias creativas es pensar que la creatividad aparece solo cuando "llega la musa". La realidad es otra: la creatividad se construye con disciplina y hábitos.
+
+        ### Claves para entrenarla
+        - Investigar referentes de forma crítica, no solo por tendencia.
+        - Prototipar rápido para validar ideas.
+        - Recibir retroalimentación y mejorar iterativamente.
+
+        ### Crear bajo presión también se aprende
+        En proyectos de moda, eventos, contenido y comunicación, los tiempos son cortos y las decisiones deben ser claras. Por eso trabajamos con ejercicios aplicados que fortalecen la toma de decisiones creativas en escenarios reales.
+
+        Cuanto más se practica, más fluido se vuelve el proceso creativo.
+      `,
+      author: 'RM Familia',
+      authorRole: 'Formación',
+      date: '14 de Marzo, 2026',
+      category: 'Creatividad',
+      imageUrl: '/images/blog/creatividad-blog.jpg',
+      readTime: '3 min de lectura'
+    },
+    {
+      id: '7',
+      slug: 'innovacion-creativa-para-marcas',
+      title: 'Innovación Creativa para Marcas y Proyectos',
+      excerpt: 'Innovar no siempre significa inventar desde cero. Muchas veces implica reinterpretar lo existente y convertirlo en una experiencia relevante para la audiencia.',
+      content: `
+        La innovación creativa nace cuando conectamos observación de mercado, cultura y ejecución estratégica. Es el puente entre una idea atractiva y un resultado que realmente impacta.
+
+        ### Innovar con enfoque
+        - Detectar oportunidades reales en el comportamiento del consumidor.
+        - Diseñar propuestas diferenciadoras con valor claro.
+        - Ejecutar con coherencia visual, narrativa y técnica.
+
+        ### De la idea a la acción
+        En RM promovemos una innovación aplicable: soluciones que puedan implementarse en campañas, eventos, contenidos y productos. El objetivo no es solo llamar la atención, sino generar resultados medibles.
+
+        Innovar también es decidir mejor, más rápido y con mayor visión.
+      `,
+      author: 'Ricardo Muñoz A.',
+      authorRole: 'Director General',
+      date: '14 de Marzo, 2026',
+      category: 'Innovación',
+      imageUrl: '/images/blog/innovacion-blog.jpg',
+      readTime: '4 min de lectura'
+    },
+    {
+      id: '8',
+      slug: 'moda-con-identidad-y-criterio',
+      title: 'Moda con Identidad: Más Allá de la Tendencia',
+      excerpt: 'La moda evoluciona cada temporada, pero el diferencial real está en construir una identidad visual consistente y auténtica.',
+      content: `
+        Hablar de moda hoy implica mucho más que seguir lo que está en auge. Las propuestas que permanecen son aquellas que logran una voz propia y coherente en cada colección, editorial o campaña.
+
+        ### Puntos clave en la construcción de estilo
+        - Definir una línea estética con intención.
+        - Entender el contexto cultural de cada propuesta.
+        - Adaptar tendencias sin perder autenticidad.
+
+        ### Moda que comunica
+        Cada decisión de estilismo, dirección de arte y casting transmite un mensaje. Por eso, formar criterio visual es tan importante como dominar la parte técnica.
+
+        En RM trabajamos la moda como lenguaje creativo y profesional.
+      `,
+      author: 'Equipo RM',
+      authorRole: 'Moda y Dirección Creativa',
+      date: '14 de Marzo, 2026',
+      category: 'Moda',
+      imageUrl: '/images/blog/moda-blog.jpg',
+      readTime: '4 min de lectura'
+    },
+    {
+      id: '9',
+      slug: 'tendencias-cultura-y-consumo-2026',
+      title: 'Tendencias 2026: Cultura, Estética y Consumo',
+      excerpt: 'Las tendencias más relevantes de este año están marcadas por autenticidad, experiencias híbridas y nuevas formas de conexión entre marcas y comunidades.',
+      content: `
+        Las tendencias de 2026 muestran un cambio claro: las audiencias valoran más la experiencia, la transparencia y la narrativa de marca que la simple exposición publicitaria.
+
+        ### Lo que estamos observando
+        - Consumo de contenido más breve, pero con mayor intención.
+        - Estéticas que mezclan nostalgia digital y acabados orgánicos.
+        - Mayor búsqueda de experiencias presenciales con impacto en redes.
+
+        ### ¿Cómo aplicar estas señales?
+        Identificar tendencias no es repetir formatos. Es leer el contexto, seleccionar lo relevante para tu público y ejecutarlo con personalidad.
+
+        Esta lectura estratégica permite anticipar movimientos y tomar mejores decisiones creativas y comerciales.
+      `,
+      author: 'RM Insights',
+      authorRole: 'Observatorio Creativo',
+      date: '14 de Marzo, 2026',
+      category: 'Tendencias',
+      imageUrl: '/images/blog/tendencias-blog.jpg',
+      readTime: '5 min de lectura'
+    },
+    {
       id: '1',
       slug: 'tendencias-fotografia-moda-2026',
       title: 'Tendencias en Fotografía de Moda para 2026',

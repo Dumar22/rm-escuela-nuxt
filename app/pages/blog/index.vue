@@ -1,5 +1,43 @@
 <script setup lang="ts">
+const route = useRoute()
 const { posts } = useBlog()
+
+const normalizeCategory = (value: string) =>
+  value
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim()
+
+const categoriaActiva = computed(() => {
+  const raw = typeof route.query.categoria === 'string' ? route.query.categoria : ''
+  return normalizeCategory(raw)
+})
+
+const categorias = computed(() => {
+  const unique = Array.from(new Set(posts.value.map(post => post.category)))
+  return ['Todas', ...unique]
+})
+
+const postsFiltrados = computed(() => {
+  if (!categoriaActiva.value) return posts.value
+  return posts.value.filter(post => normalizeCategory(post.category) === categoriaActiva.value)
+})
+
+const categoriaLink = (categoria: string) => {
+  if (categoria === 'Todas') return '/blog'
+  return `/blog?categoria=${encodeURIComponent(categoria)}`
+}
+
+const categoriaSeleccionadaLabel = computed(() => {
+  if (!categoriaActiva.value) return 'Todas'
+  return categorias.value.find(c => normalizeCategory(c) === categoriaActiva.value) ?? 'Todas'
+})
+
+const isCategoriaActiva = (categoria: string) => {
+  if (categoria === 'Todas') return !categoriaActiva.value
+  return normalizeCategory(categoria) === categoriaActiva.value
+}
 
 useSeoMeta({
   title: 'Blog y Novedades – RM Escuela Creativa',
@@ -26,11 +64,41 @@ useSeoMeta({
       </div>
     </section>
 
+    <!-- Subcategorías del blog -->
+    <section class="mx-auto max-w-7xl px-6 lg:px-8 mt-8 sm:mt-10">
+      <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 sm:p-5">
+        <div class="flex items-center justify-between gap-4 mb-4">
+          <h2 class="text-sm sm:text-base font-bold uppercase tracking-wider text-gray-900">
+            Secciones del blog
+          </h2>
+          <p class="text-xs sm:text-sm text-gray-500">
+            {{ postsFiltrados.length }} {{ postsFiltrados.length === 1 ? 'noticia' : 'noticias' }}
+          </p>
+        </div>
+
+        <div class="overflow-x-auto pb-1">
+          <div class="flex items-center gap-2 min-w-max">
+            <NuxtLink
+              v-for="categoria in categorias"
+              :key="categoria"
+              :to="categoriaLink(categoria)"
+              class="px-4 py-2 rounded-full text-sm font-semibold border transition-colors"
+              :class="isCategoriaActiva(categoria)
+                ? 'bg-orange-500 text-white border-orange-500'
+                : 'bg-white text-gray-700 border-gray-200 hover:border-orange-300 hover:text-orange-600'"
+            >
+              {{ categoria }}
+            </NuxtLink>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Grid de Artículos -->
     <div class="mx-auto max-w-7xl px-6 lg:px-8 mt-12 sm:mt-16">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div v-if="postsFiltrados.length" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <article 
-          v-for="post in posts" 
+          v-for="post in postsFiltrados" 
           :key="post.id"
           class="flex flex-col bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow duration-300"
         >
@@ -76,6 +144,18 @@ useSeoMeta({
             </div>
           </div>
         </article>
+      </div>
+
+      <div v-else class="bg-white rounded-2xl border border-gray-100 shadow-sm p-10 text-center">
+        <h3 class="text-2xl font-display font-bold text-gray-900 mb-3">
+          No hay noticias en esta sección
+        </h3>
+        <p class="text-gray-600 mb-6">
+          Aún no hay artículos publicados en <strong>{{ categoriaSeleccionadaLabel }}</strong>.
+        </p>
+        <UButton to="/blog" color="primary" variant="solid">
+          Ver todas las noticias
+        </UButton>
       </div>
     </div>
   </div>
