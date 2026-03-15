@@ -23,10 +23,10 @@ const values = [
 ]
 
 const stats = [
-  { value: '22', label: 'Años en el mercado' },
-  { value: '13', label: 'Programas formativos' },
+  { value: '22+', label: 'Años en el mercado' },
+  { value: '25+', label: 'Programas formativos' },
   { value: '2000+', label: 'Estudiantes formados' },
-  { value: '10+', label: 'Países con presencia' }
+  { value: '10+', label: 'Paises con Experiencia' },
 ]
 
 useSeoMeta({
