@@ -56,7 +56,7 @@ useHead({
         class="absolute inset-0 bg-gradient-to-b from-gray-950/30 via-gray-950/50 to-gray-950/82"
         style="pointer-events:none;"
       />
-      <div class="relative h-full mx-auto max-w-7xl px-4 lg:px-8 flex flex-col items-center justify-end pb-7 sm:pb-9 lg:pb-10 text-center">
+      <div class="relative h-full mx-auto max-w-7xl px-4 lg:px-8 flex flex-col items-start justify-end pb-7 sm:pb-9 lg:pb-10 text-left">
        
         <h1 class="text-4xl sm:text-5xl font-display font-bold tracking-tight text-[#F4EFE8]" style="text-shadow: 0 4px 18px rgba(0, 0, 0, 0.7);">
           Nosotros

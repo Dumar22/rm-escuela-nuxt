@@ -31,13 +31,43 @@ useSeoMeta({
         class="absolute inset-0 bg-gradient-to-b from-gray-950/30 via-gray-950/50 to-gray-950/82"
         style="pointer-events:none;"
       />
-      <div class="relative h-full mx-auto max-w-7xl px-6 lg:px-8 flex flex-col items-center justify-end pb-7 sm:pb-9 lg:pb-10 text-center">
+      <div class="relative h-full mx-auto max-w-7xl px-6 lg:px-8 flex flex-col items-start justify-end pb-7 sm:pb-9 lg:pb-10 text-left">
         <h1 class="text-4xl sm:text-5xl font-display font-bold tracking-tight text-[#F4EFE8]" style="text-shadow: 0 4px 18px rgba(0, 0, 0, 0.7);">
           Cursos
         </h1>
         <p class="mt-2 text-sm sm:text-base text-gray-200 max-w-xl">
           Elige el programa que transformará tu carrera creativa
         </p>
+      </div>
+    </section>
+
+    <!-- Promociones por cantidad -->
+    <section class="bg-white border-b border-gray-200">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8 py-5">
+        <div class="rounded-2xl border border-orange-200 bg-orange-50/70 p-4 sm:p-5">
+          <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <p class="text-sm sm:text-base font-semibold text-gray-900">
+              Promociones vigentes por compra múltiple de cursos
+            </p>
+            <p class="text-xs sm:text-sm text-gray-600">
+              Aplican términos y condiciones
+            </p>
+          </div>
+          <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="rounded-xl bg-white border border-orange-100 px-4 py-3">
+              <p class="text-sm text-gray-600">Compra 2 cursos</p>
+              <p class="text-xl font-bold text-orange-600">10% OFF</p>
+            </div>
+            <div class="rounded-xl bg-white border border-orange-100 px-4 py-3">
+              <p class="text-sm text-gray-600">Compra 3 cursos</p>
+              <p class="text-xl font-bold text-orange-600">15% OFF</p>
+            </div>
+            <div class="rounded-xl bg-white border border-orange-100 px-4 py-3">
+              <p class="text-sm text-gray-600">Compra 4 cursos</p>
+              <p class="text-xl font-bold text-orange-600">20% OFF</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 

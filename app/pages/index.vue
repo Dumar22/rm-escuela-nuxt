@@ -101,6 +101,16 @@ useSeoMeta({
           </p>
         </div>
 
+        <div class="mx-auto max-w-4xl mb-8 sm:mb-10">
+          <UAlert
+            color="warning"
+            variant="subtle"
+            icon="i-lucide-badge-percent"
+            title="Promoción por compra múltiple"
+            description="Compra 2 cursos: 10% OFF · Compra 3 cursos: 15% OFF · Compra 4 cursos: 20% OFF"
+          />
+        </div>
+
         <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           <CursoCard
             v-for="curso in destacados"
