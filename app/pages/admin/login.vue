@@ -48,10 +48,11 @@ useSeoMeta({
           </p>
         </div>
 
-        <form @submit.prevent="handleLogin" class="space-y-6">
-          <UFormField label="Email" name="email" required>
+        <form @submit.prevent="handleLogin" class="w-full max-w-md mx-auto space-y-6">
+          <UFormField class="w-full" label="Email" name="email" required>
             <UInput
               v-model="form.email"
+              class="w-full"
               type="email"
               placeholder="admin@rmescuela.com"
               size="lg"
@@ -60,9 +61,10 @@ useSeoMeta({
             />
           </UFormField>
 
-          <UFormField label="Contraseña" name="password" required>
+          <UFormField class="w-full" label="Contraseña" name="password" required>
             <UInput
               v-model="form.password"
+              class="w-full"
               type="password"
               placeholder="••••••••"
               size="lg"

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { todos } = useCursos()
+const { todos, fetchCursos } = useCursos()
 
 const categorias = computed(() => {
   const cats = [...new Set(todos.value.map(c => c.category))]
@@ -16,6 +16,10 @@ const cursosVisibles = computed(() => {
 useSeoMeta({
   title: 'Cursos – RM Escuela Creativa de Artes & Moda',
   description: 'Explora toda nuestra oferta formativa: moda, fotografía, diseño, música, arte, eventos y más. Formación profesional en Medellín.'
+})
+
+onMounted(() => {
+  fetchCursos()
 })
 </script>
 

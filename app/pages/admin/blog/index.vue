@@ -4,34 +4,16 @@ definePageMeta({
   layout: 'admin'
 })
 
-const supabase = useSupabase()
-const router = useRouter()
+const { posts, loading, fetchPosts } = useBlog()
 
-// Estado
-const posts = ref<any[]>([])
-const loading = ref(false)
 const showDeleteModal = ref(false)
 const postToDelete = ref<any>(null)
+const deleting = ref(false)
 
-// Cargar posts
 const loadPosts = async () => {
-  loading.value = true
-  try {
-    const { data, error } = await supabase
-      .from('blog_posts')
-      .select('*')
-      .order('created_at', { ascending: false })
-    
-    if (error) throw error
-    posts.value = data || []
-  } catch (error) {
-    console.error('Error loading posts:', error)
-  } finally {
-    loading.value = false
-  }
+  await fetchPosts()
 }
 
-// Eliminar post
 const confirmDelete = (post: any) => {
   postToDelete.value = post
   showDeleteModal.value = true
@@ -39,25 +21,22 @@ const confirmDelete = (post: any) => {
 
 const deletePost = async () => {
   if (!postToDelete.value) return
-  
+
+  deleting.value = true
   try {
-    const { error } = await supabase
-      .from('blog_posts')
-      .delete()
-      .eq('id', postToDelete.value.id)
-    
-    if (error) throw error
-    
+    await $fetch(`/api/blog/${postToDelete.value.id}`, { method: 'DELETE' })
     await loadPosts()
     showDeleteModal.value = false
     postToDelete.value = null
-  } catch (error) {
+    alert('Post eliminado correctamente')
+  } catch (error: any) {
     console.error('Error deleting post:', error)
-    alert('Error al eliminar el post')
+    alert('Error al eliminar el post: ' + (error.message || 'Error desconocido'))
+  } finally {
+    deleting.value = false
   }
 }
 
-// Cargar al montar
 onMounted(() => {
   loadPosts()
 })

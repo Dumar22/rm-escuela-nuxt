@@ -15,7 +15,8 @@ const navigation = {
   ],
   legal: [
     { label: 'Términos y Condiciones', to: '/terminos' },
-    { label: 'Política de Privacidad', to: '/privacidad' }
+    { label: 'Política de Privacidad', to: '/privacidad' },
+    { label: 'Panel', to: '/admin/login' }
   ],
   social: [
     { label: 'Facebook', href: 'https://www.facebook.com/share/1Cezb2H3io/', icon: 'i-simple-icons-facebook' },
@@ -133,7 +134,7 @@ const currentYear = new Date().getFullYear()
       </div>
 
       <!-- Bottom -->
-      <div class="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24">
+      <div class="mt-16 border-t border-white/10 pt-8 text-center sm:mt-20 lg:mt-24">
         <p class="text-xs leading-5 text-gray-400">
           &copy; {{ currentYear }} RM Escuela Creativa de Artes y Moda. Todos los derechos reservados.
         </p>

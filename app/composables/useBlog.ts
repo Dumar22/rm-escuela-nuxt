@@ -1,6 +1,21 @@
-export const useBlog = () => {
-  const posts = ref([
-    {
+export interface BlogPost {
+  id?: string
+  slug: string
+  title: string
+  excerpt: string
+  content: string
+  author: string
+  author_role?: string
+  date: string
+  category: string
+  image_url: string
+  read_time?: string
+  created_at?: string
+  updated_at?: string
+}
+
+const estadoPosts: BlogPost[] = [
+  {
       id: '4',
       slug: 'pasarela-urban-manizales-moda',
       title: 'Pasarela Urban "Manizales Está de Moda"',
@@ -22,11 +37,11 @@ export const useBlog = () => {
         **¡No te lo puedes perder!** Mantente atento a nuestras redes sociales para la revelación del lineup completo de diseñadores, venta de entradas e itinerario oficial.
       `,
       author: 'RM Familia',
-      authorRole: 'Organización',
+      author_role: 'Organización',
       date: 'Septiembre 2026',
       category: 'Eventos',
-      imageUrl: '/images/blog/pasarela_urban_manizales.jpg',
-      readTime: '3 min de lectura'
+      image_url: '/images/blog/pasarela_urban_manizales.jpg',
+      read_time: '3 min de lectura'
     },
     {
       id: '5',
@@ -47,11 +62,11 @@ export const useBlog = () => {
         El resultado es una práctica artística más consciente, actual y conectada con las industrias creativas.
       `,
       author: 'Equipo RM',
-      authorRole: 'Redacción',
+      author_role: 'Redacción',
       date: '14 de Marzo, 2026',
       category: 'Arte',
-      imageUrl: '/images/blog/arte-blog.jpg',
-      readTime: '4 min de lectura'
+      image_url: '/images/blog/arte-blog.jpg',
+      read_time: '4 min de lectura'
     },
     {
       id: '6',
@@ -72,11 +87,11 @@ export const useBlog = () => {
         Cuanto más se practica, más fluido se vuelve el proceso creativo.
       `,
       author: 'RM Familia',
-      authorRole: 'Formación',
+      author_role: 'Formación',
       date: '14 de Marzo, 2026',
       category: 'Creatividad',
-      imageUrl: '/images/blog/creatividad-blog.jpg',
-      readTime: '3 min de lectura'
+      image_url: '/images/blog/creatividad-blog.jpg',
+      read_time: '3 min de lectura'
     },
     {
       id: '7',
@@ -97,11 +112,11 @@ export const useBlog = () => {
         Innovar también es decidir mejor, más rápido y con mayor visión.
       `,
       author: 'Ricardo Muñoz A.',
-      authorRole: 'Director General',
+      author_role: 'Director General',
       date: '14 de Marzo, 2026',
       category: 'Innovación',
-      imageUrl: '/images/blog/innovacion-blog.jpg',
-      readTime: '4 min de lectura'
+      image_url: '/images/blog/innovacion-blog.jpg',
+      read_time: '4 min de lectura'
     },
     {
       id: '8',
@@ -122,11 +137,11 @@ export const useBlog = () => {
         En RM trabajamos la moda como lenguaje creativo y profesional.
       `,
       author: 'Equipo RM',
-      authorRole: 'Moda y Dirección Creativa',
+      author_role: 'Moda y Dirección Creativa',
       date: '14 de Marzo, 2026',
       category: 'Moda',
-      imageUrl: '/images/blog/moda-blog.jpg',
-      readTime: '4 min de lectura'
+      image_url: '/images/blog/moda-blog.jpg',
+      read_time: '4 min de lectura'
     },
     {
       id: '9',
@@ -147,11 +162,11 @@ export const useBlog = () => {
         Esta lectura estratégica permite anticipar movimientos y tomar mejores decisiones creativas y comerciales.
       `,
       author: 'RM Insights',
-      authorRole: 'Observatorio Creativo',
+      author_role: 'Observatorio Creativo',
       date: '14 de Marzo, 2026',
       category: 'Tendencias',
-      imageUrl: '/images/blog/tendencias-blog.jpg',
-      readTime: '5 min de lectura'
+      image_url: '/images/blog/tendencias-blog.jpg',
+      read_time: '5 min de lectura'
     },
     {
       id: '1',
@@ -173,11 +188,11 @@ export const useBlog = () => {
         En RM Escuela Creativa, nuestro curso de Fotografía de Moda está completamente actualizado con estas y más tendencias. ¡No te quedes atrás y empieza a dominar la cámara!
       `,
       author: 'Ricardo Muñoz A.',
-      authorRole: 'Director General',
+      author_role: 'Director General',
       date: '3 de Marzo, 2026',
       category: 'Fotografía',
-      imageUrl: '/cursos-detalle/fotografia-de-moda-1.jpg',
-      readTime: '4 min de lectura'
+      image_url: '/cursos-detalle/fotografia-de-moda-1.jpg',
+      read_time: '4 min de lectura'
     },
     {
       id: '2',
@@ -198,11 +213,11 @@ export const useBlog = () => {
         Al comprender la psicología detrás del comportamiento humano dentro del espacio, podemos aumentar las métricas de conversión significativamente.
       `,
       author: 'Equipo RM',
-      authorRole: 'Redacción',
+      author_role: 'Redacción',
       date: '25 de Febrero, 2026',
       category: 'Merchandising',
-      imageUrl: '/cursos-detalle/visual-merchandising-1.jpg',
-      readTime: '3 min de lectura'
+      image_url: '/cursos-detalle/visual-merchandising-1.jpg',
+      read_time: '3 min de lectura'
     },
     {
       id: '3',
@@ -222,15 +237,39 @@ export const useBlog = () => {
         Anticiparse al futuro te dará la rentabilidad que necesitas. ¿Te interesa profundizar? Tenemos el curso exacto para ti en RM Escuela.
       `,
       author: 'Ricardo Muñoz A.',
-      authorRole: 'Director General',
+      author_role: 'Director General',
       date: '10 de Febrero, 2026',
       category: 'Tendencias',
-      imageUrl: '/cursos-detalle/coolhunting-1.jpg',
-      readTime: '5 min de lectura'
+      image_url: '/cursos-detalle/coolhunting-1.jpg',
+      read_time: '5 min de lectura'
     }
-  ])
+  ]
+
+export const useBlog = () => {
+  const posts = ref<BlogPost[]>([])
+  const loading = ref(false)
+  const error = ref<string | null>(null)
+
+  const fetchPosts = async () => {
+    loading.value = true
+    error.value = null
+    try {
+      const response = await $fetch<{ data: BlogPost[] }>('/api/blog')
+      if (response && response.data) {
+        posts.value = response.data
+      }
+    } catch (err: any) {
+      console.error('Error fetching posts:', err)
+      error.value = err.message || 'Error al cargar los posts'
+      // Fallback a datos estáticos si la API falla
+      posts.value = estadoPosts
+    } finally {
+      loading.value = false
+    }
+  }
 
   const loadPostsFromSupabase = async () => {
+    await fetchPosts()
     return posts.value
   }
 
@@ -238,7 +277,11 @@ export const useBlog = () => {
 
   return {
     posts,
+    loading,
+    error,
+    fetchPosts,
     getPost,
     loadPostsFromSupabase
   }
 }
+

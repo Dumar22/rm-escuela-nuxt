@@ -13,6 +13,17 @@ interface StoredAccount {
 
 const STORAGE_USER_KEY = 'rm_static_current_user'
 const STORAGE_ACCOUNTS_KEY = 'rm_static_accounts'
+const DEFAULT_STATIC_ACCOUNTS: StoredAccount[] = [
+  {
+    id: 'admin-static-account',
+    email: 'admin@rmescuela.com',
+    password: 'RmEscuela@2024!Admin',
+    metadata: {
+      full_name: 'Administrador',
+      role: 'admin'
+    }
+  }
+]
 
 const readAccounts = (): StoredAccount[] => {
   if (!process.client) return []
@@ -30,6 +41,14 @@ const readAccounts = (): StoredAccount[] => {
 const writeAccounts = (accounts: StoredAccount[]) => {
   if (!process.client) return
   localStorage.setItem(STORAGE_ACCOUNTS_KEY, JSON.stringify(accounts))
+}
+
+const getAuthAccounts = (): StoredAccount[] => {
+  const storedAccounts = readAccounts()
+  const mergedAccounts = [...DEFAULT_STATIC_ACCOUNTS, ...storedAccounts]
+  return mergedAccounts.filter((account, index, list) => {
+    return list.findIndex(item => item.email.toLowerCase() === account.email.toLowerCase()) === index
+  })
 }
 
 const readCurrentUser = (): AppUser | null => {
@@ -86,7 +105,7 @@ export const useAuth = () => {
     hydrateUser()
     loading.value = true
     try {
-      const accounts = readAccounts()
+      const accounts = getAuthAccounts()
       const account = accounts.find(acc => acc.email.toLowerCase() === email.toLowerCase() && acc.password === password)
 
       if (!account) {
@@ -129,7 +148,7 @@ export const useAuth = () => {
     hydrateUser()
     loading.value = true
     try {
-      const accounts = readAccounts()
+      const accounts = getAuthAccounts()
       const exists = accounts.some(acc => acc.email.toLowerCase() === email.toLowerCase())
       if (exists) {
         return { success: false, error: 'Ese correo ya está registrado.' }

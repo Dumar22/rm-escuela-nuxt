@@ -1,29 +1,26 @@
-// ─────────────────────────────────────────────────────────────────────────────
-// Datos de cursos — preparado para reemplazar con llamada a API/BD en el futuro
-// Cuando se integre Supabase / Directus / etc., solo cambiar este composable.
-// ─────────────────────────────────────────────────────────────────────────────
-
 export interface Curso {
   id: string
   slug: string
   title: string
   subtitle: string
-  shortDesc: string
+  short_desc: string
   description: string
   category: string
-  categoryColor: string
+  category_color: string
   duration: string
   modality: 'Virtual y Presencial' | 'Virtual' | 'Híbrido'
   level: string
   image: string
-  detailImages?: string[]
+  detail_images?: string[]
   price: string
   currency: string
   featured: boolean
-  order: number
+  display_order: number
+  created_at?: string
+  updated_at?: string
 }
 
-const cursos: Curso[] = [
+const estadoCursos: Curso[] = [
   {
     id: '1',
     slug: 'modelo-profesional',
@@ -312,18 +309,110 @@ const cursos: Curso[] = [
 ]
 
 export function useCursos() {
-  const cursosState = useState<Curso[]>('public-cursos', () => [...cursos])
+  const cursos = ref<Curso[]>([])
+  const loading = ref(false)
+  const error = ref<string | null>(null)
 
-  const loadCursosFromSupabase = async () => {
-    return cursosState.value
+  const seedCoursesToApi = async () => {
+    for (const curso of estadoCursos) {
+      const payload = {
+        slug: curso.slug,
+        title: curso.title,
+        subtitle: curso.subtitle,
+        short_desc: curso.shortDesc,
+        description: curso.description,
+        category: curso.category,
+        category_color: curso.categoryColor,
+        duration: curso.duration,
+        modality: curso.modality,
+        level: curso.level,
+        image: curso.image,
+        detail_images: curso.detailImages || [],
+        price: curso.price,
+        currency: curso.currency,
+        featured: curso.featured,
+        display_order: curso.order
+      }
+
+      try {
+        await $fetch('/api/courses', {
+          method: 'POST',
+          body: payload
+        })
+      } catch {
+        // Ignorar duplicados por slug y seguir con el resto
+      }
+    }
   }
 
-  const todos = computed(() => [...cursosState.value].sort((a, b) => a.order - b.order))
-  const destacados = computed(() => cursosState.value.filter(c => c.featured).sort((a, b) => a.order - b.order))
+  const fetchCursos = async (allowAutoSeed = true) => {
+    loading.value = true
+    error.value = null
+    try {
+      const response = await $fetch<{ data: Curso[] }>('/api/courses')
+      const apiCourses = response?.data ?? []
+
+      if (apiCourses.length > 0) {
+        cursos.value = apiCourses
+      } else if (allowAutoSeed) {
+        await seedCoursesToApi()
+        const retry = await $fetch<{ data: Curso[] }>('/api/courses')
+        cursos.value = retry?.data ?? []
+      } else {
+        cursos.value = apiCourses
+      }
+    } catch (err: any) {
+      console.error('Error fetching courses:', err)
+      error.value = err.message || 'Error al cargar los cursos'
+      // Fallback a datos estáticos si la API falla
+      cursos.value = estadoCursos
+    } finally {
+      loading.value = false
+    }
+  }
+
+  const todos = computed(() => [...cursos.value].sort((a, b) => a.display_order - b.display_order))
+  const destacados = computed(() => cursos.value.filter(c => c.featured).sort((a, b) => a.display_order - b.display_order))
 
   function getCurso(slug: string) {
-    return cursosState.value.find(c => c.slug === slug) ?? null
+    return cursos.value.find(c => c.slug === slug) ?? null
   }
 
-  return { todos, destacados, getCurso, loadCursosFromSupabase }
+  function getCursoById(id: string) {
+    return cursos.value.find(c => c.id === id) ?? null
+  }
+
+  const loadCursosFromSupabase = async () => {
+    await fetchCursos()
+    return cursos.value
+  }
+
+  const importStaticCourses = async () => {
+    loading.value = true
+    error.value = null
+    try {
+      await seedCoursesToApi()
+      await fetchCursos(false)
+    } catch (err: any) {
+      console.error('Error importing courses:', err)
+      error.value = err.message || 'Error al importar cursos'
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
+  return {
+    cursos,
+    todos,
+    destacados,
+    loading,
+    error,
+    fetchCursos,
+    getCurso,
+    getCursoById,
+    loadCursosFromSupabase,
+    importStaticCourses
+  }
 }
+

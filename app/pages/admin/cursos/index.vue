@@ -4,71 +4,26 @@ definePageMeta({
   layout: 'admin'
 })
 
-const supabase = useSupabase()
-const { todos } = useCursos()
+const { cursos, loading, fetchCursos, getCursoById, importStaticCourses } = useCursos()
+const router = useRouter()
 
-const cursos = ref<any[]>([])
-const loading = ref(false)
-const importing = ref(false)
-const showDeleteModal = ref(false)
 const cursoToDelete = ref<any>(null)
+const showDeleteModal = ref(false)
+const deleting = ref(false)
+const importing = ref(false)
 
 const loadCursos = async () => {
-  loading.value = true
-  try {
-    const { data, error } = await supabase
-      .from('courses')
-      .select('*')
-      .order('display_order', { ascending: true })
-
-    if (error) throw error
-    cursos.value = data || []
-  }
-  catch (error) {
-    console.error('Error loading courses:', error)
-    cursos.value = []
-  }
-  finally {
-    loading.value = false
-  }
+  await fetchCursos()
 }
 
-const importCursosBase = async () => {
+const handleImport = async () => {
   importing.value = true
   try {
-    const payload = todos.value.map(curso => ({
-      slug: curso.slug,
-      title: curso.title,
-      subtitle: curso.subtitle,
-      short_desc: curso.shortDesc,
-      description: curso.description,
-      category: curso.category,
-      category_color: curso.categoryColor,
-      duration: curso.duration,
-      modality: curso.modality,
-      level: curso.level,
-      image: curso.image,
-      detail_images: curso.detailImages || [],
-      price: curso.price,
-      currency: curso.currency,
-      featured: curso.featured,
-      display_order: curso.order
-    }))
-
-    const { error } = await supabase
-      .from('courses')
-      .upsert(payload, { onConflict: 'slug' })
-
-    if (error) throw error
-
-    await loadCursos()
+    await importStaticCourses()
     alert('Cursos importados correctamente')
-  }
-  catch (error) {
-    console.error('Error importing courses:', error)
-    alert('No se pudieron importar los cursos. Verifica que la tabla courses exista en Supabase.')
-  }
-  finally {
+  } catch (error: any) {
+    alert('Error al importar: ' + (error.message || 'Error desconocido'))
+  } finally {
     importing.value = false
   }
 }
@@ -81,21 +36,18 @@ const confirmDelete = (curso: any) => {
 const deleteCurso = async () => {
   if (!cursoToDelete.value) return
 
+  deleting.value = true
   try {
-    const { error } = await supabase
-      .from('courses')
-      .delete()
-      .eq('id', cursoToDelete.value.id)
-
-    if (error) throw error
-
+    await $fetch(`/api/courses/${cursoToDelete.value.id}`, { method: 'DELETE' })
     showDeleteModal.value = false
     cursoToDelete.value = null
     await loadCursos()
-  }
-  catch (error) {
+    alert('Curso eliminado correctamente')
+  } catch (error: any) {
     console.error('Error deleting course:', error)
-    alert('Error al eliminar el curso')
+    alert('Error al eliminar el curso: ' + (error.message || 'Error desconocido'))
+  } finally {
+    deleting.value = false
   }
 }
 
@@ -117,7 +69,7 @@ useSeoMeta({
       </div>
       <div class="flex items-center gap-3">
         <UButton
-          @click="importCursosBase"
+          @click="handleImport"
           color="neutral"
           variant="outline"
           icon="i-lucide-database"
@@ -146,7 +98,7 @@ useSeoMeta({
       <p class="text-gray-600 mb-6">Importa los cursos actuales o crea uno nuevo</p>
       <div class="flex items-center justify-center gap-3">
         <UButton
-          @click="importCursosBase"
+          @click="handleImport"
           color="neutral"
           variant="outline"
           icon="i-lucide-database"

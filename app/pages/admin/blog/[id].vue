@@ -6,12 +6,10 @@ definePageMeta({
 
 const route = useRoute()
 const router = useRouter()
-const supabase = useSupabase()
 
 const isEdit = computed(() => route.params.id !== 'nuevo')
 const postId = computed(() => route.params.id)
 
-// Estado del formulario
 const form = reactive({
   title: '',
   slug: '',
@@ -28,7 +26,6 @@ const form = reactive({
 const loading = ref(false)
 const saving = ref(false)
 
-// Genera slug automático desde el título
 watch(() => form.title, (newTitle) => {
   if (!isEdit.value || !form.slug) {
     form.slug = newTitle
@@ -40,22 +37,14 @@ watch(() => form.title, (newTitle) => {
   }
 })
 
-// Cargar post si es edición
 const loadPost = async () => {
   if (!isEdit.value) return
-  
+
   loading.value = true
   try {
-    const { data, error } = await supabase
-      .from('blog_posts')
-      .select('*')
-      .eq('id', postId.value)
-      .single()
-    
-    if (error) throw error
-    
-    if (data) {
-      Object.assign(form, data)
+    const data = await $fetch(`/api/blog/${postId.value}`)
+    if (data && data.data) {
+      Object.assign(form, data.data)
     }
   } catch (error) {
     console.error('Error loading post:', error)
@@ -66,39 +55,28 @@ const loadPost = async () => {
   }
 }
 
-// Guardar post
 const savePost = async () => {
   saving.value = true
-  
+
   try {
-    const postData: any = {
-      ...form,
-      updated_at: new Date().toISOString()
-    }
+    const postData = { ...form }
 
     if (isEdit.value) {
-      // Actualizar post existente
-      const { error } = await supabase
-        .from('blog_posts')
-        .update(postData)
-        .eq('id', postId.value)
-      
-      if (error) throw error
+      await $fetch(`/api/blog/${postId.value}`, {
+        method: 'PUT',
+        body: postData
+      })
     } else {
-      // Crear nuevo post
-      postData.created_at = new Date().toISOString()
-      
-      const { error } = await supabase
-        .from('blog_posts')
-        .insert([postData])
-      
-      if (error) throw error
+      await $fetch('/api/blog', {
+        method: 'POST',
+        body: postData
+      })
     }
-    
+
     router.push('/admin/blog')
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error saving post:', error)
-    alert('Error al guardar el post')
+    alert('Error al guardar el post: ' + (error.message || 'Error desconocido'))
   } finally {
     saving.value = false
   }
@@ -108,13 +86,12 @@ onMounted(() => {
   if (isEdit.value) {
     loadPost()
   } else {
-    // Valores por defecto para nuevo post
     form.author = 'RM Familia'
     form.author_role = 'Redacción'
-    form.date = new Date().toLocaleDateString('es-ES', { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
+    form.date = new Date().toLocaleDateString('es-ES', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
     })
   }
 })

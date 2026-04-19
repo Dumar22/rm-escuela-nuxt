@@ -41,6 +41,19 @@ const formulario = reactive({
 
 const isSubmitting = ref(false)
 
+const imageViewerOpen = ref(false)
+const selectedImage = ref<{ src: string; alt: string } | null>(null)
+
+const openImageViewer = (src: string, alt: string) => {
+  selectedImage.value = { src, alt }
+  imageViewerOpen.value = true
+}
+
+const closeImageViewer = () => {
+  imageViewerOpen.value = false
+  selectedImage.value = null
+}
+
 const whatsappBase = 'https://wa.me/573016555918'
 
 const whatsappServicioLink = (servicio: string) => {
@@ -108,7 +121,12 @@ useSeoMeta({
             class="group bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow duration-300"
           >
             <!-- Imagen -->
-            <div class="overflow-hidden" style="aspect-ratio: 4/3;">
+            <button
+              type="button"
+              class="relative w-full overflow-hidden text-left cursor-zoom-in"
+              style="aspect-ratio: 4/3;"
+              @click="openImageViewer(s.imagen, s.alt)"
+            >
               <NuxtImg
                 :src="s.imagen"
                 :alt="s.alt"
@@ -119,7 +137,11 @@ useSeoMeta({
                 loading="lazy"
                 class="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
               />
-            </div>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <div class="absolute bottom-3 right-3 rounded-full bg-black/65 p-2 text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                <UIcon name="i-lucide-zoom-in" class="h-4 w-4" />
+              </div>
+            </button>
 
             <!-- Texto fuera de la imagen -->
             <div class="p-5 sm:p-6">
@@ -276,5 +298,33 @@ useSeoMeta({
         </UButton>
       </div>
     </section>
+
+    <!-- Visor de imagen fullscreen -->
+    <div
+      v-if="imageViewerOpen && selectedImage"
+      class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm p-4 sm:p-8"
+      @click.self="closeImageViewer"
+    >
+      <button
+        type="button"
+        class="absolute top-4 right-4 sm:top-6 sm:right-6 rounded-full bg-white/15 hover:bg-white/25 text-white p-2 transition-colors"
+        @click="closeImageViewer"
+        aria-label="Cerrar visor"
+      >
+        <UIcon name="i-lucide-x" class="h-6 w-6" />
+      </button>
+
+      <div class="h-full w-full flex items-center justify-center">
+        <NuxtImg
+          :src="selectedImage.src"
+          :alt="selectedImage.alt"
+          width="1600"
+          height="1200"
+          format="webp"
+          quality="90"
+          class="max-w-[100vw] max-h-[100vh] object-contain"
+        />
+      </div>
+    </div>
   </div>
 </template>

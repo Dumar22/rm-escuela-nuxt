@@ -100,7 +100,7 @@ useSeoMeta({
       </div>
 
       <!-- ═══ 3 COLUMNAS (cuando hay detailImages) ═══ -->
-      <template v-if="curso.detailImages && curso.detailImages.length >= 2">
+      <template v-if="curso.detail_images && curso.detail_images.length >= 2">
 
         <!-- DESKTOP -->
         <section class="hidden lg:grid lg:grid-cols-[1fr_minmax(0,600px)_1fr] w-full border-b border-gray-100 gap-0">
@@ -108,7 +108,7 @@ useSeoMeta({
           <!-- Imagen izquierda -->
           <div class="w-full overflow-hidden bg-gray-100" style="height:90vh;">
             <NuxtImg
-              :src="curso.detailImages[0]"
+              :src="curso.detail_images[0]"
               :alt="`${curso.title} - imagen 1`"
               width="520"
               height="820"
@@ -176,7 +176,7 @@ useSeoMeta({
                   variant="ghost"
                   size="md"
                   class="justify-center w-full font-semibold"
-                  :style="{ color: curso.categoryColor }"
+                  :style="{ color: curso.category_color }"
                 >
                   <svg class="w-4 h-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -206,7 +206,7 @@ useSeoMeta({
           <!-- Imagen derecha -->
           <div class="w-full overflow-hidden bg-gray-100" style="height:90vh;">
             <NuxtImg
-              :src="curso.detailImages[1]"
+              :src="curso.detail_images[1]"
               :alt="`${curso.title} - imagen 2`"
               width="520"
               height="820"
@@ -223,7 +223,7 @@ useSeoMeta({
         <section class="lg:hidden">
           <div class="w-full overflow-hidden bg-gray-100" style="aspect-ratio:4/3;">
             <NuxtImg
-              :src="curso.detailImages[0]"
+              :src="curso.detail_images[0]"
               :alt="curso.title"
               width="800"
               height="600"
@@ -250,7 +250,7 @@ useSeoMeta({
 
             <div class="w-full overflow-hidden rounded-2xl mt-8 bg-gray-100" style="aspect-ratio:4/3;">
               <NuxtImg
-                :src="curso.detailImages[1]"
+                :src="curso.detail_images[1]"
                 :alt="curso.title"
                 width="800"
                 height="600"
@@ -287,7 +287,7 @@ useSeoMeta({
                 variant="ghost"
                 size="lg"
                 class="justify-center font-semibold"
-                :style="{ color: curso.categoryColor }"
+                :style="{ color: curso.category_color }"
               >
                 <svg class="w-4 h-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -336,7 +336,7 @@ useSeoMeta({
               <div class="flex flex-col justify-center">
                 <span
                   class="inline-block self-start px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest text-white mb-5"
-                  :style="{ backgroundColor: curso.categoryColor }"
+                  :style="{ backgroundColor: curso.category_color }"
                 >
                   {{ curso.category }}
                 </span>
@@ -349,7 +349,7 @@ useSeoMeta({
                 </p>
                 <div v-else class="mb-6 mt-2" />
 
-                <div class="w-10 h-0.5 mb-6" :style="{ backgroundColor: curso.categoryColor }" />
+                <div class="w-10 h-0.5 mb-6" :style="{ backgroundColor: curso.category_color }" />
 
                 <div class="space-y-4 text-gray-700 leading-relaxed text-base">
                   <p v-for="(p, i) in parrafos" :key="i">{{ p }}</p>
@@ -383,7 +383,7 @@ useSeoMeta({
                     variant="ghost"
                     size="lg"
                     class="w-full justify-center font-semibold"
-                    :style="{ color: curso.categoryColor }"
+                    :style="{ color: curso.category_color }"
                   >
                     <svg class="w-4 h-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
