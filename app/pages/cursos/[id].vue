@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const route = useRoute()
-const { getCurso } = useCursos()
+const { getCurso, fetchCursos } = useCursos()
 const supabase = useSupabase()
 const { getUser } = useAuth()
 
@@ -12,6 +12,31 @@ const parrafos = computed(() =>
 
 // "STREET ART POP · CREADOR DE..." → línea grande / línea pequeña
 const subtitleTag   = computed(() => curso.value?.subtitle.split('·').slice(1).join('·').trim() ?? '')
+const pensumImageCandidates = computed(() => {
+  if (!curso.value) return []
+  return [
+    curso.value.detail_images?.[1],
+    `/pensums/${curso.value.slug}.jpg`,
+    `/pensums/${curso.value.slug}.png`,
+    `/pensums/${curso.value.slug}.webp`
+  ].filter(Boolean) as string[]
+})
+const pensumImageIndex = ref(0)
+const pensumImageSrc = computed(() => pensumImageCandidates.value[pensumImageIndex.value] || '')
+
+watch(() => curso.value?.slug, () => {
+  pensumImageIndex.value = 0
+})
+
+const handlePensumImageError = () => {
+  if (pensumImageIndex.value < pensumImageCandidates.value.length - 1) {
+    pensumImageIndex.value += 1
+  }
+}
+
+onMounted(async () => {
+  await fetchCursos()
+})
 
 const isPensumOpen = ref(false)
 const isCheckoutOpen = ref(false)
@@ -447,11 +472,15 @@ useSeoMeta({
           
           <div class="overflow-y-auto p-4 sm:p-6 bg-gray-50 flex-1">
             <img 
-              v-if="curso"
-              :src="`/pensums/${curso.slug}.jpg`" 
+              v-if="curso && pensumImageSrc"
+              :src="pensumImageSrc" 
               :alt="`Pensum de ${curso.title}`"
               class="w-full h-auto bg-white rounded-lg shadow-sm border border-gray-100 block"
+              @error="handlePensumImageError"
             />
+            <div v-else class="rounded-lg border border-gray-200 bg-white p-8 text-center text-sm text-gray-500">
+              No hay imagen de pensum disponible para este curso.
+            </div>
           </div>
           
           <div class="flex-shrink-0 p-4 sm:p-5 flex flex-col sm:flex-row justify-end gap-3 border-t border-gray-100 bg-white rounded-b-2xl">
