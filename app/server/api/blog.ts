@@ -26,6 +26,17 @@ export default defineEventHandler(async (event) => {
       const result = await queryOne(`
         INSERT INTO blog_posts (title, slug, excerpt, content, author, author_role, date, category, image_url, read_time)
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+        ON CONFLICT (slug) DO UPDATE SET
+          title = EXCLUDED.title,
+          excerpt = EXCLUDED.excerpt,
+          content = EXCLUDED.content,
+          author = EXCLUDED.author,
+          author_role = EXCLUDED.author_role,
+          date = EXCLUDED.date,
+          category = EXCLUDED.category,
+          image_url = EXCLUDED.image_url,
+          read_time = EXCLUDED.read_time,
+          updated_at = NOW()
         RETURNING *
       `, [title, slug, excerpt, content, author, author_role, date, category, image_url, read_time])
 

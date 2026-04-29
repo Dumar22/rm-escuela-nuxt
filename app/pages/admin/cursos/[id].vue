@@ -50,6 +50,19 @@ const selectedCategoryColor = computed(() => {
   return categoryColorOptions.find(option => option.value === form.category_color) || categoryColorOptions[0]
 })
 
+const parseDetailImages = (value: unknown) => {
+  if (Array.isArray(value)) return value.filter(Boolean).map(String)
+  if (typeof value === 'string' && value.trim()) {
+    try {
+      const parsed = JSON.parse(value)
+      return Array.isArray(parsed) ? parsed.filter(Boolean).map(String) : []
+    } catch {
+      return [value]
+    }
+  }
+  return []
+}
+
 const previewStats = computed(() => [
   { label: 'Duración', value: form.duration || 'Pendiente' },
   { label: 'Modalidad', value: form.modality || 'Pendiente' },
@@ -74,10 +87,11 @@ const loadCurso = async () => {
   try {
     const data = await $fetch(`/api/courses/${cursoId.value}`)
     if (data && data.data) {
+      const detailImages = parseDetailImages(data.data.detail_images)
       Object.assign(form, {
         ...data.data,
-        detail_image_1: data.data.detail_images?.[0] || '',
-        detail_image_2: data.data.detail_images?.[1] || ''
+        detail_image_1: detailImages[0] || '',
+        detail_image_2: detailImages[1] || ''
       })
     }
   } catch (error) {

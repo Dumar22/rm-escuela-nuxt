@@ -20,6 +20,28 @@ export interface Curso {
   updated_at?: string
 }
 
+const normalizeCourse = (curso: any): Curso => ({
+  id: String(curso.id ?? ''),
+  slug: curso.slug ?? '',
+  title: curso.title ?? '',
+  subtitle: curso.subtitle ?? '',
+  short_desc: curso.short_desc ?? curso.shortDesc ?? '',
+  description: curso.description ?? '',
+  category: curso.category ?? '',
+  category_color: curso.category_color ?? curso.categoryColor ?? '#ea580c',
+  duration: curso.duration ?? '',
+  modality: curso.modality ?? 'Virtual y Presencial',
+  level: curso.level ?? '',
+  image: curso.image ?? '',
+  detail_images: Array.isArray(curso.detail_images) ? curso.detail_images : [],
+  price: curso.price ?? '',
+  currency: curso.currency ?? 'COP',
+  featured: Boolean(curso.featured),
+  display_order: Number(curso.display_order ?? curso.order ?? 1),
+  created_at: curso.created_at,
+  updated_at: curso.updated_at
+})
+
 const estadoCursos: Curso[] = [
   {
     id: '1',
@@ -339,8 +361,9 @@ export function useCursos() {
           method: 'POST',
           body: payload
         })
-      } catch {
-        // Ignorar duplicados por slug y seguir con el resto
+      } catch (err) {
+        // Ignorar errores individuales y continuar
+        console.warn('Error creating/updating curso', curso.slug, err)
       }
     }
   }
@@ -353,19 +376,19 @@ export function useCursos() {
       const apiCourses = response?.data ?? []
 
       if (apiCourses.length > 0) {
-        cursos.value = apiCourses
+        cursos.value = apiCourses.map(normalizeCourse)
       } else if (allowAutoSeed) {
         await seedCoursesToApi()
         const retry = await $fetch<{ data: Curso[] }>('/api/courses')
-        cursos.value = retry?.data ?? []
+        cursos.value = (retry?.data ?? []).map(normalizeCourse)
       } else {
-        cursos.value = apiCourses
+        cursos.value = apiCourses.map(normalizeCourse)
       }
     } catch (err: any) {
       console.error('Error fetching courses:', err)
       error.value = err.message || 'Error al cargar los cursos'
       // Fallback a datos estáticos si la API falla
-      cursos.value = estadoCursos
+      cursos.value = estadoCursos.map(normalizeCourse)
     } finally {
       loading.value = false
     }
@@ -380,6 +403,10 @@ export function useCursos() {
 
   function getCursoById(id: string) {
     return cursos.value.find(c => c.id === id) ?? null
+  }
+
+  function getStaticCursoBySlug(slug: string) {
+    return estadoCursos.find(curso => curso.slug === slug) ?? null
   }
 
   const loadCursosFromSupabase = async () => {
@@ -411,6 +438,7 @@ export function useCursos() {
     fetchCursos,
     getCurso,
     getCursoById,
+    getStaticCursoBySlug,
     loadCursosFromSupabase,
     importStaticCourses
   }

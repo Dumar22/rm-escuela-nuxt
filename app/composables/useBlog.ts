@@ -14,6 +14,22 @@ export interface BlogPost {
   updated_at?: string
 }
 
+const normalizePost = (post: any): BlogPost => ({
+  id: post.id ? String(post.id) : undefined,
+  slug: post.slug ?? '',
+  title: post.title ?? '',
+  excerpt: post.excerpt ?? '',
+  content: post.content ?? '',
+  author: post.author ?? '',
+  author_role: post.author_role ?? post.authorRole ?? '',
+  date: post.date ?? '',
+  category: post.category ?? '',
+  image_url: post.image_url ?? post.imageUrl ?? '',
+  read_time: post.read_time ?? post.readTime ?? '',
+  created_at: post.created_at,
+  updated_at: post.updated_at
+})
+
 const estadoPosts: BlogPost[] = [
   {
       id: '4',
@@ -250,21 +266,53 @@ export const useBlog = () => {
   const loading = ref(false)
   const error = ref<string | null>(null)
 
-  const fetchPosts = async () => {
+  const fetchPosts = async (allowAutoSeed = true) => {
     loading.value = true
     error.value = null
     try {
       const response = await $fetch<{ data: BlogPost[] }>('/api/blog')
-      if (response && response.data) {
-        posts.value = response.data
+      const apiPosts = response?.data ?? []
+
+      if (apiPosts.length > 0) {
+        posts.value = apiPosts.map(normalizePost)
+      } else if (allowAutoSeed) {
+        // Si la tabla está vacía, sembrar los posts estáticos y recargar
+        await seedPostsToApi()
+        const retry = await $fetch<{ data: BlogPost[] }>('/api/blog')
+        posts.value = (retry?.data ?? []).map(normalizePost)
+      } else {
+        posts.value = apiPosts.map(normalizePost)
       }
     } catch (err: any) {
       console.error('Error fetching posts:', err)
       error.value = err.message || 'Error al cargar los posts'
       // Fallback a datos estáticos si la API falla
-      posts.value = estadoPosts
+      posts.value = estadoPosts.map(normalizePost)
     } finally {
       loading.value = false
+    }
+  }
+
+  const seedPostsToApi = async () => {
+    for (const p of estadoPosts) {
+      const payload = {
+        slug: p.slug,
+        title: p.title,
+        excerpt: p.excerpt,
+        content: p.content,
+        author: p.author,
+        author_role: p.author_role,
+        date: p.date,
+        category: p.category,
+        image_url: p.image_url,
+        read_time: p.read_time
+      }
+
+      try {
+        await $fetch('/api/blog', { method: 'POST', body: payload })
+      } catch (err) {
+        // Ignorar errores individuales y continuar con el resto
+      }
     }
   }
 
@@ -280,6 +328,7 @@ export const useBlog = () => {
     loading,
     error,
     fetchPosts,
+    seedPostsToApi,
     getPost,
     loadPostsFromSupabase
   }

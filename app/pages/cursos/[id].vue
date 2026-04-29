@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const route = useRoute()
-const { getCurso, fetchCursos } = useCursos()
+const { getCurso, fetchCursos, getStaticCursoBySlug } = useCursos()
 const supabase = useSupabase()
 const { getUser } = useAuth()
 
@@ -12,13 +12,32 @@ const parrafos = computed(() =>
 
 // "STREET ART POP · CREADOR DE..." → línea grande / línea pequeña
 const subtitleTag   = computed(() => curso.value?.subtitle.split('·').slice(1).join('·').trim() ?? '')
+const detailImageCandidates = computed(() => {
+  if (!curso.value) return []
+
+  const staticCourse = getStaticCursoBySlug(curso.value.slug)
+  const staticDetailImages = (staticCourse as any)?.detailImages ?? staticCourse?.detail_images ?? []
+
+  return [
+    ...(curso.value.detail_images ?? []),
+    ...staticDetailImages
+  ].filter(Boolean) as string[]
+})
+
+const detailImageLeft = computed(() => detailImageCandidates.value[0] || '')
+const detailImageRight = computed(() => detailImageCandidates.value[1] || detailImageCandidates.value[0] || '')
 const pensumImageCandidates = computed(() => {
   if (!curso.value) return []
-  return [
-    curso.value.detail_images?.[1],
+  const fallbackBySlug = [
     `/pensums/${curso.value.slug}.jpg`,
     `/pensums/${curso.value.slug}.png`,
-    `/pensums/${curso.value.slug}.webp`
+    `/pensums/${curso.value.slug}.webp`,
+    `/cursos-detalle/${curso.value.slug}-1.jpg`,
+    `/cursos-detalle/${curso.value.slug}-2.jpg`
+  ]
+  return [
+    curso.value.detail_images?.[1],
+    ...fallbackBySlug
   ].filter(Boolean) as string[]
 })
 const pensumImageIndex = ref(0)
@@ -36,6 +55,10 @@ const handlePensumImageError = () => {
 
 onMounted(async () => {
   await fetchCursos()
+})
+
+watch(curso, () => {
+  pensumImageIndex.value = 0
 })
 
 const isPensumOpen = ref(false)
@@ -125,7 +148,7 @@ useSeoMeta({
       </div>
 
       <!-- ═══ 3 COLUMNAS (cuando hay detailImages) ═══ -->
-      <template v-if="curso.detail_images && curso.detail_images.length >= 2">
+      <template v-if="detailImageCandidates.length >= 2">
 
         <!-- DESKTOP -->
         <section class="hidden lg:grid lg:grid-cols-[1fr_minmax(0,600px)_1fr] w-full border-b border-gray-100 gap-0">
@@ -133,7 +156,7 @@ useSeoMeta({
           <!-- Imagen izquierda -->
           <div class="w-full overflow-hidden bg-gray-100" style="height:90vh;">
             <NuxtImg
-              :src="curso.detail_images[0]"
+              :src="detailImageLeft"
               :alt="`${curso.title} - imagen 1`"
               width="520"
               height="820"
@@ -231,7 +254,7 @@ useSeoMeta({
           <!-- Imagen derecha -->
           <div class="w-full overflow-hidden bg-gray-100" style="height:90vh;">
             <NuxtImg
-              :src="curso.detail_images[1]"
+              :src="detailImageRight"
               :alt="`${curso.title} - imagen 2`"
               width="520"
               height="820"
@@ -248,7 +271,7 @@ useSeoMeta({
         <section class="lg:hidden">
           <div class="w-full overflow-hidden bg-gray-100" style="aspect-ratio:4/3;">
             <NuxtImg
-              :src="curso.detail_images[0]"
+              :src="detailImageLeft"
               :alt="curso.title"
               width="800"
               height="600"
@@ -275,7 +298,7 @@ useSeoMeta({
 
             <div class="w-full overflow-hidden rounded-2xl mt-8 bg-gray-100" style="aspect-ratio:4/3;">
               <NuxtImg
-                :src="curso.detail_images[1]"
+                :src="detailImageRight"
                 :alt="curso.title"
                 width="800"
                 height="600"

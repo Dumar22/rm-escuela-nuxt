@@ -26,6 +26,23 @@ export default defineEventHandler(async (event) => {
       const result = await queryOne(`
         INSERT INTO courses (slug, title, subtitle, short_desc, description, category, category_color, duration, modality, level, image, detail_images, price, currency, featured, display_order)
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)
+        ON CONFLICT (slug) DO UPDATE SET
+          title = EXCLUDED.title,
+          subtitle = EXCLUDED.subtitle,
+          short_desc = EXCLUDED.short_desc,
+          description = EXCLUDED.description,
+          category = EXCLUDED.category,
+          category_color = EXCLUDED.category_color,
+          duration = EXCLUDED.duration,
+          modality = EXCLUDED.modality,
+          level = EXCLUDED.level,
+          image = EXCLUDED.image,
+          detail_images = EXCLUDED.detail_images,
+          price = EXCLUDED.price,
+          currency = EXCLUDED.currency,
+          featured = EXCLUDED.featured,
+          display_order = EXCLUDED.display_order,
+          updated_at = NOW()
         RETURNING *
       `, [slug, title, subtitle, short_desc, description, category, category_color, duration, modality, level, image, JSON.stringify(detail_images || []), price, currency, featured || false, display_order || 1])
 

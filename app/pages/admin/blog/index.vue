@@ -4,7 +4,7 @@ definePageMeta({
   layout: 'admin'
 })
 
-const { posts, loading, fetchPosts } = useBlog()
+const { posts, loading, fetchPosts, seedPostsToApi } = useBlog()
 
 const showDeleteModal = ref(false)
 const postToDelete = ref<any>(null)
@@ -12,6 +12,20 @@ const deleting = ref(false)
 
 const loadPosts = async () => {
   await fetchPosts()
+}
+
+const handleSync = async () => {
+  loading.value = true
+  try {
+    await seedPostsToApi()
+    await fetchPosts()
+    alert('Posts sincronizados correctamente')
+  } catch (error: any) {
+    console.error('Error syncing posts:', error)
+    alert('Error al sincronizar posts: ' + (error.message || 'Error desconocido'))
+  } finally {
+    loading.value = false
+  }
 }
 
 const confirmDelete = (post: any) => {
@@ -53,6 +67,14 @@ useSeoMeta({
         <h1 class="text-3xl font-bold text-gray-900 mb-2">Gestión del Blog</h1>
         <p class="text-gray-600">Administra los artículos de tu blog</p>
       </div>
+      <UButton
+        @click="handleSync"
+        color="neutral"
+        variant="outline"
+        icon="i-lucide-database"
+      >
+        Sincronizar posts
+      </UButton>
       <UButton
         to="/admin/blog/nuevo"
         color="primary"

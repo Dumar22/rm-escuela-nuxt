@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const route = useRoute()
-const { posts } = useBlog()
+const { posts, fetchPosts } = useBlog()
 
 const normalizeCategory = (value: string) =>
   value
@@ -42,6 +42,10 @@ const isCategoriaActiva = (categoria: string) => {
 useSeoMeta({
   title: 'Blog y Novedades – RM Escuela Creativa',
   description: 'Entérate de las últimas tendencias, consejos y noticias sobre el mundo del diseño, la moda y el emprendimiento.'
+})
+
+onMounted(() => {
+  fetchPosts()
 })
 </script>
 
@@ -106,7 +110,7 @@ useSeoMeta({
           <NuxtLink :to="`/blog/${post.slug}`" class="block aspect-[3/4] overflow-hidden bg-gray-100 relative group">
             <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors z-10"></div>
             <NuxtImg
-              :src="post.imageUrl"
+              :src="post.image_url || post.imageUrl"
               :alt="post.title"
               width="600"
               :modifiers="{ fit: 'inside' }"

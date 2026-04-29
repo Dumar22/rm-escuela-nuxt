@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const route = useRoute()
-const { getPost } = useBlog()
+const { getPost, fetchPosts } = useBlog()
 
 const post = computed(() => getPost(route.params.slug as string))
 
@@ -29,6 +29,10 @@ const formattedContent = computed(() => {
 useSeoMeta({
   title: () => post.value ? `${post.value.title} – Blog RM Escuela` : 'Artículo no encontrado',
   description: () => post.value?.excerpt || ''
+})
+
+onMounted(() => {
+  fetchPosts()
 })
 </script>
 
@@ -73,7 +77,7 @@ useSeoMeta({
       <div class="mx-auto max-w-5xl px-6 lg:px-8 mb-12">
         <div class="w-full md:w-1/2 mx-auto rounded-2xl overflow-hidden shadow-sm bg-gray-100">
           <NuxtImg
-            :src="post.imageUrl"
+            :src="post.image_url || post.imageUrl"
             :alt="post.title"
             width="1200"
             :modifiers="{ fit: 'inside' }"
