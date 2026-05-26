@@ -38,6 +38,12 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   runtimeConfig: {
+    resendApiKey: process.env.RESEND_API_KEY || '',
+    contactNotificationFromEmail: process.env.CONTACT_NOTIFICATION_FROM_EMAIL || '',
+    contactNotificationToEmails: process.env.CONTACT_NOTIFICATION_TO_EMAILS || '',
+    whatsappApiToken: process.env.WHATSAPP_API_TOKEN || '',
+    whatsappPhoneNumberId: process.env.WHATSAPP_PHONE_NUMBER_ID || '',
+    whatsappTeamTo: process.env.WHATSAPP_TEAM_TO || '',
     public: {
       supabaseUrl: process.env.NUXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL || '',
       supabaseKey: process.env.NUXT_PUBLIC_SUPABASE_KEY || process.env.SUPABASE_KEY || ''

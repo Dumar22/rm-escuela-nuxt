@@ -88,6 +88,21 @@ CREATE INDEX IF NOT EXISTS idx_course_orders_course_id ON course_orders(course_i
 CREATE INDEX IF NOT EXISTS idx_course_orders_payment_status ON course_orders(payment_status);
 CREATE INDEX IF NOT EXISTS idx_course_orders_student_email ON course_orders(student_email);
 
+-- Tabla: contact_messages (mensajes del formulario de contacto)
+CREATE TABLE IF NOT EXISTS contact_messages (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  phone TEXT,
+  course TEXT,
+  message TEXT NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Índices para contact_messages
+CREATE INDEX IF NOT EXISTS idx_contact_messages_created_at ON contact_messages(created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_contact_messages_email ON contact_messages(email);
+
 -- Insertar un usuario admin por defecto (email: admin@rmescuela.com, password: admin123)
 -- La contraseña debe reemplazarse después por una real hasheada
 INSERT INTO admin_users (email, password_hash, full_name, role)
