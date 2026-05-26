@@ -1,4 +1,4 @@
-import { query, queryOne } from '~/app/server/utils/db'
+import { query, queryOne } from '#server/utils/db'
 
 export default defineEventHandler(async (event) => {
   const method = getMethod(event)
@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
     if (method === 'GET') {
       // Listar todos los cursos
       const courses = await query(`
-        SELECT * FROM courses 
+        SELECT * FROM courses
         ORDER BY display_order ASC
       `)
       return { success: true, data: courses }
@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
     if (method === 'POST') {
       // Crear nuevo curso
       const body = await readBody(event)
-      
+
       const { slug, title, subtitle, short_desc, description, category, category_color, duration, modality, level, image, detail_images, price, currency, featured, display_order } = body
 
       if (!slug || !title || !description) {

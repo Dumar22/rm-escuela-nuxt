@@ -1,4 +1,4 @@
-import { query, queryOne } from '~/app/server/utils/db'
+import { query, queryOne } from '#server/utils/db'
 
 export default defineEventHandler(async (event) => {
   const method = getMethod(event)
@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
     if (method === 'GET') {
       // Listar todos los posts
       const posts = await query(`
-        SELECT * FROM blog_posts 
+        SELECT * FROM blog_posts
         ORDER BY created_at DESC
       `)
       return { success: true, data: posts }
@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
     if (method === 'POST') {
       // Crear nuevo post
       const body = await readBody(event)
-      
+
       const { title, slug, excerpt, content, author, author_role, date, category, image_url, read_time } = body
 
       if (!title || !slug || !content) {

@@ -1,4 +1,4 @@
-import { query, queryOne } from '~/app/server/utils/db'
+import { query, queryOne } from '#server/utils/db'
 
 export default defineEventHandler(async (event) => {
   const method = getMethod(event)
@@ -25,11 +25,11 @@ export default defineEventHandler(async (event) => {
     if (method === 'PUT') {
       // Actualizar post
       const body = await readBody(event)
-      
+
       const { title, slug, excerpt, content, author, author_role, date, category, image_url, read_time } = body
 
       const post = await queryOne(`
-        UPDATE blog_posts 
+        UPDATE blog_posts
         SET title = $1, slug = $2, excerpt = $3, content = $4, author = $5, author_role = $6, date = $7, category = $8, image_url = $9, read_time = $10, updated_at = NOW()
         WHERE id = $11
         RETURNING *

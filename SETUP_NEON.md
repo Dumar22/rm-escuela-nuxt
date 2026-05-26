@@ -74,17 +74,6 @@ Notas:
 
 ```
 app/
-  ├── server/
-  │   ├── api/
-  │   │   ├── courses.ts           # GET/POST cursos
-  │   │   ├── courses/
-  │   │   │   └── [id].ts          # GET/PUT/DELETE curso por ID
-  │   │   ├── blog.ts              # GET/POST posts
-  │   │   ├── contact.ts           # POST mensajes de contacto
-  │   │   └── blog/
-  │   │       └── [id].ts          # GET/PUT/DELETE post por ID
-  │   └── utils/
-  │       └── db.ts                # Cliente Neon (pool PostgreSQL)
   ├── composables/
   │   ├── useCursos.ts         # Fetch a /api/courses
   │   └── useBlog.ts           # Fetch a /api/blog
@@ -96,6 +85,18 @@ app/
           └── blog/
               ├── index.vue    # Lista y elimina posts
               └── [id].vue     # Crea/edita posts
+
+server/
+    ├── api/
+    │   ├── courses.ts           # GET/POST cursos
+    │   ├── courses/
+    │   │   └── [id].ts          # GET/PUT/DELETE curso por ID
+    │   ├── blog.ts              # GET/POST posts
+    │   ├── contact.ts           # POST mensajes de contacto
+    │   └── blog/
+    │       └── [id].ts          # GET/PUT/DELETE post por ID
+    └── utils/
+            └── db.ts                # Cliente Neon (pool PostgreSQL)
 ```
 
 ## Autenticación

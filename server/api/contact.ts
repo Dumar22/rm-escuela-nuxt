@@ -1,4 +1,4 @@
-import { queryOne } from '~/app/server/utils/db'
+import { queryOne } from '#server/utils/db'
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 

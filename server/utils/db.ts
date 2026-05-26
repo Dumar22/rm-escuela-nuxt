@@ -5,7 +5,7 @@ let pool: Pool
 export function getPool(): Pool {
   if (!pool) {
     const databaseUrl = process.env.NEON_URL
-    
+
     if (!databaseUrl) {
       throw new Error('NEON_URL no está configurada en las variables de entorno')
     }
@@ -33,7 +33,7 @@ export async function query(text: string, params?: any[]) {
   }
 }
 
-export async function queryOne(text: string, params?: any[]) {
+export async function queryOne<T = any>(text: string, params?: any[]) {
   const result = await query(text, params)
-  return result[0] || null
+  return (result[0] as T) || null
 }
