@@ -110,7 +110,7 @@ onMounted(() => {
           <NuxtLink :to="`/blog/${post.slug}`" class="block aspect-[3/4] overflow-hidden bg-gray-100 relative group">
             <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors z-10"></div>
             <NuxtImg
-              :src="post.image_url || post.imageUrl"
+              :src="post.image_url"
               :alt="post.title"
               width="600"
               :modifiers="{ fit: 'inside' }"
@@ -124,7 +124,7 @@ onMounted(() => {
             <div class="flex items-center gap-3 text-xs mb-4">
               <span class="font-semibold text-orange-600 uppercase tracking-wider">{{ post.category }}</span>
               <span class="text-gray-300">•</span>
-              <span class="text-gray-500">{{ post.readTime }}</span>
+              <span class="text-gray-500">{{ post.read_time }}</span>
             </div>
 
             <NuxtLink :to="`/blog/${post.slug}`" class="block text-xl font-bold text-gray-900 leading-snug mb-3 hover:text-orange-500 transition-colors">

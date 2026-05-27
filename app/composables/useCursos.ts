@@ -20,29 +20,53 @@ export interface Curso {
   updated_at?: string
 }
 
+type StaticCurso = {
+  id: string
+  slug: string
+  title: string
+  subtitle: string
+  shortDesc: string
+  description: string
+  category: string
+  categoryColor: string
+  duration: string
+  modality: Curso['modality']
+  level: string
+  image: string
+  detailImages: string[]
+  price: string
+  currency: string
+  featured: boolean
+  order: number
+}
+
+const getStaticCourseBySlug = (slug: string) => estadoCursos.find(curso => curso.slug === slug) ?? null
+
 const normalizeCourse = (curso: any): Curso => ({
-  id: String(curso.id ?? ''),
-  slug: curso.slug ?? '',
-  title: curso.title ?? '',
-  subtitle: curso.subtitle ?? '',
-  short_desc: curso.short_desc ?? curso.shortDesc ?? '',
-  description: curso.description ?? '',
-  category: curso.category ?? '',
-  category_color: curso.category_color ?? curso.categoryColor ?? '#ea580c',
-  duration: curso.duration ?? '',
-  modality: curso.modality ?? 'Virtual y Presencial',
-  level: curso.level ?? '',
-  image: curso.image ?? '',
-  detail_images: Array.isArray(curso.detail_images) ? curso.detail_images : [],
-  price: curso.price ?? '',
-  currency: curso.currency ?? 'COP',
-  featured: Boolean(curso.featured),
-  display_order: Number(curso.display_order ?? curso.order ?? 1),
+  id: String(curso.id ?? getStaticCourseBySlug(curso.slug ?? '')?.id ?? ''),
+  slug: curso.slug ?? getStaticCourseBySlug(curso.slug ?? '')?.slug ?? '',
+  title: curso.title ?? getStaticCourseBySlug(curso.slug ?? '')?.title ?? '',
+  subtitle: curso.subtitle ?? getStaticCourseBySlug(curso.slug ?? '')?.subtitle ?? '',
+  short_desc: curso.short_desc ?? curso.shortDesc ?? getStaticCourseBySlug(curso.slug ?? '')?.shortDesc ?? '',
+  description: curso.description ?? getStaticCourseBySlug(curso.slug ?? '')?.description ?? '',
+  category: curso.category ?? getStaticCourseBySlug(curso.slug ?? '')?.category ?? '',
+  category_color: curso.category_color ?? curso.categoryColor ?? getStaticCourseBySlug(curso.slug ?? '')?.categoryColor ?? '#ea580c',
+  duration: curso.duration ?? getStaticCourseBySlug(curso.slug ?? '')?.duration ?? '',
+  modality: curso.modality ?? getStaticCourseBySlug(curso.slug ?? '')?.modality ?? 'Virtual y Presencial',
+  level: curso.level ?? getStaticCourseBySlug(curso.slug ?? '')?.level ?? '',
+  image: curso.image ?? getStaticCourseBySlug(curso.slug ?? '')?.image ?? '',
+  detail_images: Array.isArray(curso.detail_images) && curso.detail_images.length > 0
+    ? curso.detail_images
+    : (getStaticCourseBySlug(curso.slug ?? '')?.detailImages ?? []),
+  price: curso.price ?? getStaticCourseBySlug(curso.slug ?? '')?.price ?? '',
+  currency: curso.currency ?? getStaticCourseBySlug(curso.slug ?? '')?.currency ?? 'COP',
+  featured: typeof curso.featured === 'boolean' ? curso.featured : Boolean(getStaticCourseBySlug(curso.slug ?? '')?.featured),
+  display_order: Number(curso.display_order ?? curso.order ?? getStaticCourseBySlug(curso.slug ?? '')?.order ?? 1),
   created_at: curso.created_at,
   updated_at: curso.updated_at
 })
 
-const estadoCursos: Curso[] = [
+const estadoCursos: StaticCurso[] = [
   {
     id: '1',
     slug: 'modelo-profesional',
@@ -368,6 +392,9 @@ export function useCursos() {
     }
   }
 
+  const hasIncompletePensumMedia = (courses: any[]) =>
+    courses.some(curso => !Array.isArray(curso.detail_images) || curso.detail_images.length < 2)
+
   const fetchCursos = async (allowAutoSeed = true) => {
     loading.value = true
     error.value = null
@@ -376,7 +403,15 @@ export function useCursos() {
       const apiCourses = response?.data ?? []
 
       if (apiCourses.length > 0) {
-        cursos.value = apiCourses.map(normalizeCourse)
+        const normalizedCourses = apiCourses.map(normalizeCourse)
+
+        if (allowAutoSeed && hasIncompletePensumMedia(apiCourses)) {
+          await seedCoursesToApi()
+          const retry = await $fetch<{ data: Curso[] }>('/api/courses')
+          cursos.value = (retry?.data ?? []).map(normalizeCourse)
+        } else {
+          cursos.value = normalizedCourses
+        }
       } else if (allowAutoSeed) {
         await seedCoursesToApi()
         const retry = await $fetch<{ data: Curso[] }>('/api/courses')

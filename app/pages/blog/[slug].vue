@@ -55,7 +55,7 @@ onMounted(() => {
         <div class="flex items-center gap-3 text-sm mb-4">
           <span class="font-bold text-orange-500 uppercase tracking-widest">{{ post.category }}</span>
           <span class="text-gray-300">•</span>
-          <span class="text-gray-500">{{ post.readTime }}</span>
+          <span class="text-gray-500">{{ post.read_time }}</span>
         </div>
 
         <h1 class="text-3xl sm:text-4xl font-display font-black uppercase leading-tight tracking-tight text-gray-950 mb-8">
@@ -68,7 +68,7 @@ onMounted(() => {
           </div>
           <div>
             <p class="font-bold text-gray-900">{{ post.author }}</p>
-            <p class="text-sm text-gray-500">{{ post.authorRole }} — Publicado el {{ post.date }}</p>
+            <p class="text-sm text-gray-500">{{ post.author_role }} — Publicado el {{ post.date }}</p>
           </div>
         </div>
       </header>
@@ -77,7 +77,7 @@ onMounted(() => {
       <div class="mx-auto max-w-5xl px-6 lg:px-8 mb-12">
         <div class="w-full md:w-1/2 mx-auto rounded-2xl overflow-hidden shadow-sm bg-gray-100">
           <NuxtImg
-            :src="post.image_url || post.imageUrl"
+            :src="post.image_url"
             :alt="post.title"
             width="1200"
             :modifiers="{ fit: 'inside' }"

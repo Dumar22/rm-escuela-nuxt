@@ -266,35 +266,8 @@ export const useBlog = () => {
   const loading = ref(false)
   const error = ref<string | null>(null)
 
-  const fetchPosts = async (allowAutoSeed = true) => {
-    loading.value = true
-    error.value = null
-    try {
-      const response = await $fetch<{ data: BlogPost[] }>('/api/blog')
-      const apiPosts = response?.data ?? []
-
-      if (apiPosts.length > 0) {
-        posts.value = apiPosts.map(normalizePost)
-      } else if (allowAutoSeed) {
-        // Si la tabla está vacía, sembrar los posts estáticos y recargar
-        await seedPostsToApi()
-        const retry = await $fetch<{ data: BlogPost[] }>('/api/blog')
-        posts.value = (retry?.data ?? []).map(normalizePost)
-      } else {
-        posts.value = apiPosts.map(normalizePost)
-      }
-    } catch (err: any) {
-      console.error('Error fetching posts:', err)
-      error.value = err.message || 'Error al cargar los posts'
-      // Fallback a datos estáticos si la API falla
-      posts.value = estadoPosts.map(normalizePost)
-    } finally {
-      loading.value = false
-    }
-  }
-
-  const seedPostsToApi = async () => {
-    for (const p of estadoPosts) {
+  const seedPostsToApi = async (seedSource: BlogPost[] = estadoPosts) => {
+    for (const p of seedSource) {
       const payload = {
         slug: p.slug,
         title: p.title,
@@ -310,9 +283,49 @@ export const useBlog = () => {
 
       try {
         await $fetch('/api/blog', { method: 'POST', body: payload })
-      } catch (err) {
+      } catch {
         // Ignorar errores individuales y continuar con el resto
       }
+    }
+  }
+
+  const fetchPosts = async (allowAutoSeed = true) => {
+    loading.value = true
+    error.value = null
+    try {
+      const response = await $fetch<{ data: BlogPost[] }>('/api/blog')
+      const apiPosts = response?.data ?? []
+
+      if (apiPosts.length > 0) {
+        if (allowAutoSeed) {
+          const apiSlugs = new Set(apiPosts.map(post => post.slug))
+          const missingStaticPosts = estadoPosts.filter(post => !apiSlugs.has(post.slug))
+
+          if (missingStaticPosts.length > 0) {
+            await seedPostsToApi(missingStaticPosts)
+            const retry = await $fetch<{ data: BlogPost[] }>('/api/blog')
+            posts.value = (retry?.data ?? []).map(normalizePost)
+          } else {
+            posts.value = apiPosts.map(normalizePost)
+          }
+        } else {
+          posts.value = apiPosts.map(normalizePost)
+        }
+      } else if (allowAutoSeed) {
+        // Si la tabla está vacía, sembrar los posts estáticos y recargar
+        await seedPostsToApi()
+        const retry = await $fetch<{ data: BlogPost[] }>('/api/blog')
+        posts.value = (retry?.data ?? []).map(normalizePost)
+      } else {
+        posts.value = apiPosts.map(normalizePost)
+      }
+    } catch (err: any) {
+      console.error('Error fetching posts:', err)
+      error.value = err.message || 'Error al cargar los posts'
+      // Fallback a datos estáticos si la API falla
+      posts.value = estadoPosts.map(normalizePost)
+    } finally {
+      loading.value = false
     }
   }
 

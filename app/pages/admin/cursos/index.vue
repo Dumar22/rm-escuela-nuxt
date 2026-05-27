@@ -119,7 +119,6 @@ useSeoMeta({
             <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Curso</th>
             <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Categoría</th>
             <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Modalidad</th>
-            <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Precio</th>
             <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Orden</th>
             <th class="px-6 py-4 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">Acciones</th>
           </tr>
@@ -137,7 +136,6 @@ useSeoMeta({
             </td>
             <td class="px-6 py-4 text-sm text-gray-700">{{ curso.category }}</td>
             <td class="px-6 py-4 text-sm text-gray-700">{{ curso.modality }}</td>
-            <td class="px-6 py-4 text-sm text-gray-700">{{ curso.currency }} {{ curso.price }}</td>
             <td class="px-6 py-4 text-sm text-gray-700">{{ curso.display_order }}</td>
             <td class="px-6 py-4 text-right">
               <div class="flex items-center justify-end gap-2">

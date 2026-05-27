@@ -32,12 +32,13 @@ const pensumImageCandidates = computed(() => {
     `/pensums/${curso.value.slug}.jpg`,
     `/pensums/${curso.value.slug}.png`,
     `/pensums/${curso.value.slug}.webp`,
+    `/pensums/${curso.value.slug}.jpeg`,
     `/cursos-detalle/${curso.value.slug}-1.jpg`,
     `/cursos-detalle/${curso.value.slug}-2.jpg`
   ]
   return [
+    ...fallbackBySlug,
     curso.value.detail_images?.[1],
-    ...fallbackBySlug
   ].filter(Boolean) as string[]
 })
 const pensumImageIndex = ref(0)
@@ -478,7 +479,7 @@ useSeoMeta({
         class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 sm:p-6"
         @click.self="isPensumOpen = false"
       >
-        <div class="bg-white rounded-2xl w-full max-w-4xl max-h-[90vh] flex flex-col shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
+        <div class="bg-white rounded-2xl w-[min(96vw,1400px)] max-h-[95vh] flex flex-col shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
           
           <div class="flex flex-shrink-0 justify-between items-center p-4 sm:p-5 border-b border-gray-100">
             <h3 class="text-xl sm:text-2xl font-bold text-gray-900 shrink min-w-0 truncate">Pensum: {{ curso?.title }}</h3>
@@ -498,7 +499,7 @@ useSeoMeta({
               v-if="curso && pensumImageSrc"
               :src="pensumImageSrc" 
               :alt="`Pensum de ${curso.title}`"
-              class="w-full h-auto bg-white rounded-lg shadow-sm border border-gray-100 block"
+              class="w-full h-auto max-h-[calc(95vh-160px)] object-contain bg-white rounded-lg shadow-sm border border-gray-100 block mx-auto"
               @error="handlePensumImageError"
             />
             <div v-else class="rounded-lg border border-gray-200 bg-white p-8 text-center text-sm text-gray-500">
@@ -568,14 +569,6 @@ useSeoMeta({
               Clases en nuestras instalaciones con atención personalizada
             </p>
           </label>
-        </div>
-
-        <!-- Precio -->
-        <div class="rounded-xl border border-orange-200 bg-orange-50 p-4 mb-8">
-          <p class="text-sm text-gray-600 mb-1">Valor del curso</p>
-          <p class="text-2xl font-bold text-gray-900">
-            {{ curso?.currency }} {{ curso?.price }}
-          </p>
         </div>
 
         <!-- Buttons -->
